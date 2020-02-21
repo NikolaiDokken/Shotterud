@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.js": "/static/js/main.7ba17481.chunk.js",
-    "main.js.map": "/static/js/main.7ba17481.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.f15abcef.js",
-    "runtime-main.js.map": "/static/js/runtime-main.f15abcef.js.map",
-    "static/js/2.fa23343b.chunk.js": "/static/js/2.fa23343b.chunk.js",
-    "static/js/2.fa23343b.chunk.js.map": "/static/js/2.fa23343b.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.9a3c8ca637e02f9513cce3e8cf27c72b.js": "/precache-manifest.9a3c8ca637e02f9513cce3e8cf27c72b.js",
-    "service-worker.js": "/service-worker.js",
-    "static/js/2.fa23343b.chunk.js.LICENSE.txt": "/static/js/2.fa23343b.chunk.js.LICENSE.txt"
+    "main.js": "/Shotterud/static/js/main.7ba17481.chunk.js",
+    "main.js.map": "/Shotterud/static/js/main.7ba17481.chunk.js.map",
+    "runtime-main.js": "/Shotterud/static/js/runtime-main.b97fcfb0.js",
+    "runtime-main.js.map": "/Shotterud/static/js/runtime-main.b97fcfb0.js.map",
+    "static/js/2.fa23343b.chunk.js": "/Shotterud/static/js/2.fa23343b.chunk.js",
+    "static/js/2.fa23343b.chunk.js.map": "/Shotterud/static/js/2.fa23343b.chunk.js.map",
+    "index.html": "/Shotterud/index.html",
+    "precache-manifest.b9dd1aa5f8a86ba0948532084efd74b6.js": "/Shotterud/precache-manifest.b9dd1aa5f8a86ba0948532084efd74b6.js",
+    "service-worker.js": "/Shotterud/service-worker.js",
+    "static/js/2.fa23343b.chunk.js.LICENSE.txt": "/Shotterud/static/js/2.fa23343b.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.f15abcef.js",
+    "static/js/runtime-main.b97fcfb0.js",
     "static/js/2.fa23343b.chunk.js",
     "static/js/main.7ba17481.chunk.js"
   ]
