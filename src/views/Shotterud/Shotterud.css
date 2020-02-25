@@ -1,0 +1,16 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+
+#prev-names div {
+  padding: 0 4px 0 4px;
+  height: 80%;
+  background: white;
+  border-radius: 5px;
+  color: black;
+  text-align: center;
+  margin: 2px 5px 0 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-transform: uppercase;
+  font-family: "Roboto";
+}

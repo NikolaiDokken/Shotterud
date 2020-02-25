@@ -10,13 +10,6 @@ export default function Spinner(props) {
       insert_times = 30,
       duration_time = 10000;
 
-    if (users.length < 2) {
-      $("#msgbox").slideToggle(100);
-      setTimeout(function() {
-        $("#msgbox").slideToggle(100);
-      }, 3000);
-      return false;
-    }
     $("#roll" + props.nr).attr("disabled", true);
     var scrollsize = 0,
       diff = 0;
@@ -64,11 +57,12 @@ export default function Spinner(props) {
               $("#log" + props.nr).append(
                 'Skål <span class="badge">' + text + "!</span>"
               );
+              $("#prev-names").append("<div>" + text + "</div>");
             }
           });
       }
     );
-  }, [props.names, props.nr]);
+  }, [props]);
 
   function randomEx(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -104,13 +98,6 @@ export default function Spinner(props) {
       <div className="col-md-12" style={{ textAlign: "center" }}>
         <div className="log" id={"log" + props.nr}></div>
       </div>
-      <button
-        onClick={spin}
-        id={"roll" + props.nr}
-        className="btn btn-success form-control roll"
-      >
-        Roll
-      </button>
     </div>
   );
 }

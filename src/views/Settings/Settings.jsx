@@ -8,7 +8,8 @@ import {
   Toolbar,
   IconButton,
   Slider,
-  TextField
+  MenuItem,
+  Select
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import NameChips from "./NameChips";
@@ -43,65 +44,56 @@ export default function Settings(props) {
           <Typography variant="h6">Settings</Typography>
         </Toolbar>
       </AppBar>
-      <Grid container justify="center" style={{ width: "100%" }}>
-        <Grid
-          container
-          direction="column"
-          style={{ padding: "16px", width: "inherit" }}
-        >
-          <Grid item xs>
-            <Typography>Minimum/Maximum time (min) before spin</Typography>
-            <Slider
-              value={props.settings.minMaxSec}
-              valueLabelDisplay="auto"
-              step={0.5}
-              marks
-              min={0.5}
-              max={20}
-              onChange={(e, value) => {
-                props.setSettings({
-                  ...props.settings,
-                  minMaxSec: value
-                });
-                window.sessionStorage.setItem(
-                  "minMaxSec",
-                  JSON.stringify(props.settings.minMaxSec)
-                );
-              }}
-            />
-          </Grid>
-          <Grid
-            container
-            item
-            justify="center"
-            xs
-            style={{ marginTop: "16px" }}
+      <Grid
+        container
+        direction="column"
+        style={{ padding: "16px", width: "inherit" }}
+        spacing={4}
+      >
+        <Grid item xs>
+          <Typography>Minimum/Maximum time (min) before spin</Typography>
+          <Slider
+            value={props.settings.minMaxSec}
+            valueLabelDisplay="auto"
+            step={0.5}
+            marks
+            min={0.5}
+            max={20}
+            onChange={(e, value) => {
+              props.setSettings({
+                ...props.settings,
+                minMaxSec: value
+              });
+              window.sessionStorage.setItem(
+                "minMaxSec",
+                JSON.stringify(props.settings.minMaxSec)
+              );
+            }}
+          />
+        </Grid>
+        <Grid item xs>
+          <Typography>Max amt. of spinners</Typography>
+          <Select
+            value={props.settings.amtSpinners}
+            onChange={e => {
+              props.setSettings({
+                ...props.settings,
+                amtSpinners: e.target.value
+              });
+              window.sessionStorage.setItem(
+                "amtSpinners",
+                JSON.stringify(e.target.value)
+              );
+            }}
           >
-            <TextField
-              label="Number of spinners"
-              type="number"
-              variant="outlined"
-              value={props.settings.amtSpinners}
-              onChange={e => {
-                props.setSettings({
-                  ...props.settings,
-                  amtSpinners:
-                    e.target.value < 1
-                      ? 1
-                      : e.target.value > 4
-                      ? 4
-                      : e.target.value
-                });
-                window.sessionStorage.setItem(
-                  "amtSpinners",
-                  JSON.stringify(props.settings.amtSpinners)
-                );
-              }}
-            />
-          </Grid>
-          <Grid item xs style={{ marginTop: "16px" }}>
-            <NameChips names={props.names} setNames={props.setNames} />
-          </Grid>
+            <MenuItem value={1}>1</MenuItem>
+            <MenuItem value={2}>2</MenuItem>
+            <MenuItem value={3}>3</MenuItem>
+            <MenuItem value={4}>4</MenuItem>
+          </Select>
+        </Grid>
+        <Grid item xs>
+          <NameChips names={props.names} setNames={props.setNames} />
         </Grid>
       </Grid>
     </Dialog>

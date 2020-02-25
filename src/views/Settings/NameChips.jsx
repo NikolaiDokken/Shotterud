@@ -33,17 +33,17 @@ export default function EnhancedTable(props) {
   }, [addName]);
 
   return (
-    <Grid container direction="column">
-      <Grid item container direction="column">
+    <Grid container direction="column" spacing={4}>
+      <Grid container item justify="center">
         <Typography variant="h4">Add Names</Typography>
-        <Grid>
-          <TextField id="inputName" label="Add name"></TextField>
-          <Button variant="outlined" onClick={addName}>
-            Add
-          </Button>
-        </Grid>
       </Grid>
-      <Grid container direction row justify="center">
+      <Grid container item justify="center">
+        <TextField id="inputName" label="Add name"></TextField>
+        <Button variant="outlined" onClick={addName}>
+          Add
+        </Button>
+      </Grid>
+      <Grid container item direction row justify="center">
         {props.names.map(name => (
           <Chip
             label={name.name.toUpperCase()}

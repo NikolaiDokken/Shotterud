@@ -6,6 +6,7 @@
   -moz-background-size: cover;
   -webkit-background-size: cover;
   height: 100%;
+  margin-right: 16px;
 }
 .topbox {
   background: white;
@@ -110,13 +111,13 @@
 }
 .log {
   text-align: center;
-  font-size: 1.5em;
+  font-size: 18px;
   color: white;
   font-family: "Roboto";
   text-transform: uppercase;
 }
 .log span {
-  font-size: 2em;
+  font-size: 18px;
   font-weight: bold;
   color: #57b3f9;
   font-family: "Roboto";
