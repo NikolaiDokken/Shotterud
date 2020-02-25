@@ -1,0 +1,140 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+
+.container {
+  background: #313131;
+  background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  height: 100%;
+}
+.topbox {
+  background: white;
+  background: #0f161d; /* Old browsers */
+  background: -moz-linear-gradient(
+    left,
+    #0f161d 0%,
+    #131b24 51%,
+    #0f161d 100%
+  ); /* FF3.6+ */
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    color-stop(0%, #0f161d),
+    color-stop(51%, #131b24),
+    color-stop(100%, #0f161d)
+  ); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(
+    left,
+    #0f161d 0%,
+    #131b24 51%,
+    #0f161d 100%
+  ); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(
+    left,
+    #0f161d 0%,
+    #131b24 51%,
+    #0f161d 100%
+  ); /* Opera 11.10+ */
+  background: -ms-linear-gradient(
+    left,
+    #0f161d 0%,
+    #131b24 51%,
+    #0f161d 100%
+  ); /* IE10+ */
+  background: linear-gradient(
+    to right,
+    #0f161d 0%,
+    #131b24 51%,
+    #0f161d 100%
+  ); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0f161d', endColorstr='#0f161d',GradientType=1 ); /* IE6-9 */
+  box-shadow: 0 0 10px 0 black;
+}
+
+.rollbox {
+  height: 103px;
+  background: #000;
+  border: 1px solid #616161;
+  overflow-x: auto;
+  overflow: hidden;
+  position: relative;
+  padding: 0;
+}
+.rollbox > table {
+  width: auto;
+  margin: 0;
+  padding: 0;
+}
+.loadout {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  z-index: 1;
+  background: #121619;
+}
+
+.roller {
+  position: relative;
+  display: block;
+  text-align: center;
+  color: white;
+  font-size: 20px;
+}
+.roller div {
+  display: block;
+  height: 50px;
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  left: 0;
+  text-transform: uppercase;
+  font-family: "Roboto";
+  font-weight: normal;
+}
+
+.badge {
+  padding-top: 5px;
+  text-shadow: 1px 1px 1px black;
+  margin-bottom: 20px;
+}
+.line {
+  width: 2px;
+  height: 198px;
+  top: 1px;
+  left: 50%;
+  position: absolute;
+  background: #ffce0a;
+  opacity: 0.6;
+  z-index: 2;
+}
+.log {
+  text-align: center;
+  font-size: 1.5em;
+  color: white;
+  font-family: "Roboto";
+  text-transform: uppercase;
+}
+.log span {
+  font-size: 2em;
+  font-weight: bold;
+  color: #57b3f9;
+  font-family: "Roboto";
+  text-transform: uppercase;
+}
+.roll {
+  margin-top: 15px;
+}
+.roller {
+  height: 90px;
+
+  width: 180px;
+  margin-right: 10px;
+  box-shadow: 0 0 5px 0 black;
+}
+tr,
+table,
+td {
+  margin: 0;
+  padding: 0;
+}
