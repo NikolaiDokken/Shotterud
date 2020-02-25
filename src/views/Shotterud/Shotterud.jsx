@@ -91,11 +91,11 @@ export default function Shotterud(props) {
           style={{ height: "100%" }}
         >
           <Grid item container direction="row" justify="flex-end">
-            <Grid item xs container id="prev-names" justify="flex-end"></Grid>
-            <Grid item>
+            <div className="hideScrollBar" id="prev-names"></div>
+            <div style={{ position: "absolute", right: "0", top: "0" }}>
               <ArrowBack />
               <LocalBarIcon />
-            </Grid>
+            </div>
           </Grid>
         </Grid>
       </AppBar>

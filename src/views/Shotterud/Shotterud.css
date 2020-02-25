@@ -13,4 +13,24 @@
   justify-content: center;
   text-transform: uppercase;
   font-family: "Roboto";
+  word-wrap: none;
+  word-break: keep-all;
+}
+
+#prev-names {
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  right: 40px;
+  margin-right: 60px;
+}
+
+.hideScrollBar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE and Edge */
+.hideScrollBar {
+  -ms-overflow-style: none;
 }

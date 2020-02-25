@@ -58,6 +58,8 @@ export default function Spinner(props) {
                 'Skål <span class="badge">' + text + "!</span>"
               );
               $("#prev-names").append("<div>" + text + "</div>");
+              var scrollTarget = document.getElementById("prev-names");
+              scrollTarget.scrollLeft = scrollTarget.scrollWidth;
             }
           });
       }
