@@ -83,7 +83,7 @@ export default function Shotterud(props) {
 
   return (
     <div>
-      <AppBar style={{ height: "26px" }}>
+      <AppBar id="AppBar">
         <Grid
           container
           direction="column"
@@ -99,6 +99,10 @@ export default function Shotterud(props) {
           </Grid>
         </Grid>
       </AppBar>
+      <h1 className="header-text" style={{ marginTop: "40px" }}>
+        Velkommen til
+      </h1>
+      <h1 className="header-text">SHOTTERUD</h1>
       <div
         id="spinners"
         style={{ height: "100%", width: "100%", position: "absolute" }}
@@ -110,18 +114,20 @@ export default function Shotterud(props) {
           justify="center"
           style={{ marginTop: "100px" }}
         >
-          <Typography variant="h5" style={{ textTransform: "uppercase" }}>
+          <Typography className="infoText" variant="h5" style={{ textTransform: "uppercase" }}>
             Add more than 1 player
           </Typography>
         </Grid>
       ) : null}
-      <Button
-        variant="outlined"
-        onClick={() => setSettingsOpen(true)}
-        style={{ position: "absolute", bottom: "4px", right: "4px" }}
-      >
-        Settings
-      </Button>
+      <div style={{ position: "absolute", bottom: "6px", left:"50%" , marginLeft: "-55px"}}>
+        <Button
+          onClick={() => setSettingsOpen(true)}
+          style={{ color: "#ff3d42" , fontSize: "24px"}}
+        >
+          Settings
+        </Button>
+      </div>
+
       <Settings
         open={settingsOpen}
         setOpen={setSettingsOpen}
