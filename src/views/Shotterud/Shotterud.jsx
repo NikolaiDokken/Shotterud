@@ -134,15 +134,17 @@ export default function Shotterud(props) {
           </Grid>
         </Grid>
       </AppBar>
-      {names.length < 2 ? (
-        <h1 className="header-text" style={{ marginTop: "40px" }}>
-          Velkommen til <br /> SHOTTERUD
-        </h1>
-      ) : (
-        <h1 className="header-text" style={{ marginTop: "40px" }}>
-          SHOTTERUD
-        </h1>
-      )}
+      <Grid container justify="center">
+        {names.length < 2 ? (
+          <h1 className="header-text" style={{ marginTop: "40px" }}>
+            Velkommen til <br /> SHOTTERUD
+          </h1>
+        ) : (
+          <h1 className="header-text" style={{ marginTop: "40px" }}>
+            SHOTTERUD
+          </h1>
+        )}
+      </Grid>
       <div
         id="spinners"
         style={{ height: "100%", width: "100%", position: "absolute" }}
