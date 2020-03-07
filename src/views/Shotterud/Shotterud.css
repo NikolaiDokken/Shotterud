@@ -34,3 +34,25 @@
 .hideScrollBar {
   -ms-overflow-style: none;
 }
+
+.header-text {
+  text-align: center;
+  color: #ff3d42;
+  font-family: "Roboto";
+}
+#AppBar {
+  height: "26px";
+  margin: "auto";
+  background: rgb(255, 61, 66);
+  background: #303030;
+}
+
+.infoText {
+  color: aqua;
+  text-align: center;
+  font-family: "Roboto";
+}
+
+.settings {
+  background-color: #ff3d42;
+}

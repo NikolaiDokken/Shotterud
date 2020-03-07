@@ -1,11 +1,19 @@
 import React, { useState, useEffect, useCallback } from "react";
 import ReactDOM from "react-dom";
-import { Button, Typography, Grid, AppBar } from "@material-ui/core";
+import {
+  Button,
+  Typography,
+  Grid,
+  AppBar,
+  IconButton
+} from "@material-ui/core";
 import ArrowBack from "@material-ui/icons/ArrowBack";
 import LocalBarIcon from "@material-ui/icons/LocalBar";
+import CloseIcon from "@material-ui/icons/Close";
 import Settings from "../Settings/Settings";
 import Spinner from "./Spinner";
 import "./Shotterud.css";
+import $ from "jquery";
 
 export default function Shotterud(props) {
   var storedNames = JSON.parse(sessionStorage.getItem("names"));
@@ -79,11 +87,26 @@ export default function Shotterud(props) {
 
   useEffect(() => {
     start();
+    var storedPrevNames = JSON.parse(sessionStorage.getItem("prevNames"));
+    if (storedPrevNames !== null) {
+      storedPrevNames.map(name => {
+        $("#prev-names").append(
+          "<p style=" +
+            "color:#ff3d42;font-size:20px;font-family:arial;text-transform:uppercase;border-left:groove;border-color:#ff3d42;padding-right:15px;padding-left:15px;margin-top:0px;margin-bottom:0px;" +
+            ">" +
+            name +
+            "</p>"
+        );
+        return null;
+      });
+      var scrollTarget = document.getElementById("prev-names");
+      scrollTarget.scrollLeft = scrollTarget.scrollWidth;
+    }
   }, [start]);
 
   return (
     <div>
-      <AppBar style={{ height: "26px" }}>
+      <AppBar id="AppBar">
         <Grid
           container
           direction="column"
@@ -96,9 +119,38 @@ export default function Shotterud(props) {
               <ArrowBack />
               <LocalBarIcon />
             </div>
+            <div style={{ position: "absolute", left: "0", top: "0" }}>
+              <IconButton
+                size="small"
+                style={{ padding: "0px" }}
+                onClick={() => {
+                  $("#prev-names").empty();
+                  window.sessionStorage.setItem(
+                    "prevNames",
+                    JSON.stringify([])
+                  );
+                }}
+              >
+                <CloseIcon />
+              </IconButton>
+            </div>
           </Grid>
         </Grid>
       </AppBar>
+      <Grid container justify="center">
+        {names.length < 2 ? (
+          <h1 className="header-text" style={{ marginTop: "40px" }}>
+            Velkommen til <br /> SHOTTERUD
+          </h1>
+        ) : (
+          <h1
+            className="header-text"
+            style={{ marginTop: "40px", marginBottom: 0 }}
+          >
+            SHOTTERUD
+          </h1>
+        )}
+      </Grid>
       <div
         id="spinners"
         style={{ height: "100%", width: "100%", position: "absolute" }}
@@ -110,18 +162,32 @@ export default function Shotterud(props) {
           justify="center"
           style={{ marginTop: "100px" }}
         >
-          <Typography variant="h5" style={{ textTransform: "uppercase" }}>
+          <Typography
+            className="infoText"
+            variant="h5"
+            style={{ textTransform: "uppercase" }}
+          >
             Add more than 1 player
           </Typography>
         </Grid>
       ) : null}
-      <Button
-        variant="outlined"
-        onClick={() => setSettingsOpen(true)}
-        style={{ position: "absolute", bottom: "4px", right: "4px" }}
+      <Grid
+        container
+        justify="center"
+        style={{
+          position: "absolute",
+          bottom: "6px",
+          width: "100%"
+        }}
       >
-        Settings
-      </Button>
+        <Button
+          onClick={() => setSettingsOpen(true)}
+          style={{ color: "#ff3d42", fontSize: "24px" }}
+        >
+          Settings
+        </Button>
+      </Grid>
+
       <Settings
         open={settingsOpen}
         setOpen={setSettingsOpen}

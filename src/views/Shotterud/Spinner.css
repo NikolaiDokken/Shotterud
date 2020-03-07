@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
 
 .container {
-  background: #313131;
   background-size: cover;
   -moz-background-size: cover;
   -webkit-background-size: cover;
@@ -9,54 +8,13 @@
   margin-right: 16px;
 }
 .topbox {
-  background: white;
-  background: #0f161d; /* Old browsers */
-  background: -moz-linear-gradient(
-    left,
-    #0f161d 0%,
-    #131b24 51%,
-    #0f161d 100%
-  ); /* FF3.6+ */
-  background: -webkit-gradient(
-    linear,
-    left top,
-    right top,
-    color-stop(0%, #0f161d),
-    color-stop(51%, #131b24),
-    color-stop(100%, #0f161d)
-  ); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(
-    left,
-    #0f161d 0%,
-    #131b24 51%,
-    #0f161d 100%
-  ); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(
-    left,
-    #0f161d 0%,
-    #131b24 51%,
-    #0f161d 100%
-  ); /* Opera 11.10+ */
-  background: -ms-linear-gradient(
-    left,
-    #0f161d 0%,
-    #131b24 51%,
-    #0f161d 100%
-  ); /* IE10+ */
-  background: linear-gradient(
-    to right,
-    #0f161d 0%,
-    #131b24 51%,
-    #0f161d 100%
-  ); /* W3C */
+  background: #303030;
+  background: #303030; /* Old browsers */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0f161d', endColorstr='#0f161d',GradientType=1 ); /* IE6-9 */
-  box-shadow: 0 0 10px 0 black;
 }
 
 .rollbox {
   height: 103px;
-  background: #000;
-  border: 1px solid #616161;
   overflow-x: auto;
   overflow: hidden;
   position: relative;
@@ -72,7 +30,7 @@
   top: 5px;
   left: 5px;
   z-index: 1;
-  background: #121619;
+  background: #303030;
 }
 
 .roller {
@@ -81,6 +39,8 @@
   text-align: center;
   color: white;
   font-size: 20px;
+  background: #303030;
+  overflow-wrap: break-word;
 }
 .roller div {
   display: block;
@@ -105,19 +65,20 @@
   top: 1px;
   left: 50%;
   position: absolute;
-  background: #ffce0a;
+  background: #57b3f9;
   opacity: 0.6;
   z-index: 2;
 }
 .log {
   text-align: center;
-  font-size: 18px;
-  color: white;
+  font-size: 24px;
+  color: #ff3d42;
+  font-weight: bold;
   font-family: "Roboto";
   text-transform: uppercase;
 }
 .log span {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: bold;
   color: #57b3f9;
   font-family: "Roboto";
@@ -128,10 +89,16 @@
 }
 .roller {
   height: 90px;
-
+  background: rgb(255, 61, 66);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 61, 66, 0.6222864145658263) 0%,
+    rgba(255, 61, 66, 1) 50%,
+    rgba(255, 61, 66, 0.6166841736694677) 100%
+  );
   width: 180px;
   margin-right: 10px;
-  box-shadow: 0 0 5px 0 black;
+  box-shadow: 0 0 5px 0 #ff3d42;
 }
 tr,
 table,
