@@ -140,7 +140,6 @@ export default function Shotterud(props) {
         </h1>
       ) : (
         <h1 className="header-text" style={{ marginTop: "40px" }}>
-          <br></br>
           SHOTTERUD
         </h1>
       )}
