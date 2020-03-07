@@ -122,6 +122,7 @@ export default function Shotterud(props) {
             <div style={{ position: "absolute", left: "0", top: "0" }}>
               <IconButton
                 size="small"
+                style={{ padding: "0px" }}
                 onClick={() => {
                   $("#prev-names").empty();
                   window.sessionStorage.setItem(
