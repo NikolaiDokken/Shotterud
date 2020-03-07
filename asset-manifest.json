@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/Shotterud/static/css/main.1a3672aa.chunk.css",
-    "main.js": "/Shotterud/static/js/main.bac856e5.chunk.js",
-    "main.js.map": "/Shotterud/static/js/main.bac856e5.chunk.js.map",
+    "main.css": "/Shotterud/static/css/main.4e70b285.chunk.css",
+    "main.js": "/Shotterud/static/js/main.8a93b423.chunk.js",
+    "main.js.map": "/Shotterud/static/js/main.8a93b423.chunk.js.map",
     "runtime-main.js": "/Shotterud/static/js/runtime-main.b97fcfb0.js",
     "runtime-main.js.map": "/Shotterud/static/js/runtime-main.b97fcfb0.js.map",
-    "static/js/2.99999bbe.chunk.js": "/Shotterud/static/js/2.99999bbe.chunk.js",
-    "static/js/2.99999bbe.chunk.js.map": "/Shotterud/static/js/2.99999bbe.chunk.js.map",
+    "static/js/2.f43befb5.chunk.js": "/Shotterud/static/js/2.f43befb5.chunk.js",
+    "static/js/2.f43befb5.chunk.js.map": "/Shotterud/static/js/2.f43befb5.chunk.js.map",
     "index.html": "/Shotterud/index.html",
-    "precache-manifest.533c51969a1e2113842cebdc2474f97f.js": "/Shotterud/precache-manifest.533c51969a1e2113842cebdc2474f97f.js",
+    "precache-manifest.2d19f7f7a59b2aff44d55b6b8f57a596.js": "/Shotterud/precache-manifest.2d19f7f7a59b2aff44d55b6b8f57a596.js",
     "service-worker.js": "/Shotterud/service-worker.js",
-    "static/css/main.1a3672aa.chunk.css.map": "/Shotterud/static/css/main.1a3672aa.chunk.css.map",
-    "static/js/2.99999bbe.chunk.js.LICENSE.txt": "/Shotterud/static/js/2.99999bbe.chunk.js.LICENSE.txt"
+    "static/css/main.4e70b285.chunk.css.map": "/Shotterud/static/css/main.4e70b285.chunk.css.map",
+    "static/js/2.f43befb5.chunk.js.LICENSE.txt": "/Shotterud/static/js/2.f43befb5.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.b97fcfb0.js",
-    "static/js/2.99999bbe.chunk.js",
-    "static/css/main.1a3672aa.chunk.css",
-    "static/js/main.bac856e5.chunk.js"
+    "static/js/2.f43befb5.chunk.js",
+    "static/css/main.4e70b285.chunk.css",
+    "static/js/main.8a93b423.chunk.js"
   ]
 }
