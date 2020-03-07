@@ -1,11 +1,19 @@
 import React, { useState, useEffect, useCallback } from "react";
 import ReactDOM from "react-dom";
-import { Button, Typography, Grid, AppBar } from "@material-ui/core";
+import {
+  Button,
+  Typography,
+  Grid,
+  AppBar,
+  IconButton
+} from "@material-ui/core";
 import ArrowBack from "@material-ui/icons/ArrowBack";
 import LocalBarIcon from "@material-ui/icons/LocalBar";
+import CloseIcon from "@material-ui/icons/Close";
 import Settings from "../Settings/Settings";
 import Spinner from "./Spinner";
 import "./Shotterud.css";
+import $ from "jquery";
 
 export default function Shotterud(props) {
   var storedNames = JSON.parse(sessionStorage.getItem("names"));
@@ -79,6 +87,19 @@ export default function Shotterud(props) {
 
   useEffect(() => {
     start();
+    var storedPrevNames = JSON.parse(sessionStorage.getItem("prevNames"));
+    if (storedPrevNames !== null) {
+      storedPrevNames.map(name => {
+        $("#prev-names").append(
+          "<p style=" +
+            "color:#ff3d42;font-size:24px;font-family:arial;text-transform:uppercase;border-left:groove;border-color:#ff3d42;padding-right:15px;padding-left:15px;margin-top:0px;margin-bottom:0px;" +
+            ">" +
+            name +
+            "</p>"
+        );
+        return null;
+      });
+    }
   }, [start]);
 
   return (
@@ -95,6 +116,20 @@ export default function Shotterud(props) {
             <div style={{ position: "absolute", right: "0", top: "0" }}>
               <ArrowBack />
               <LocalBarIcon />
+            </div>
+            <div style={{ position: "absolute", left: "0", top: "0" }}>
+              <IconButton
+                size="small"
+                onClick={() => {
+                  $("#prev-names").empty();
+                  window.sessionStorage.setItem(
+                    "prevNames",
+                    JSON.stringify([])
+                  );
+                }}
+              >
+                <CloseIcon />
+              </IconButton>
             </div>
           </Grid>
         </Grid>
@@ -129,12 +164,13 @@ export default function Shotterud(props) {
           </Typography>
         </Grid>
       ) : null}
-      <Grid 
-      container justify="center"
+      <Grid
+        container
+        justify="center"
         style={{
           position: "absolute",
-          bottom: "6px",  
-          width: "100%"       
+          bottom: "6px",
+          width: "100%"
         }}
       >
         <Button

@@ -14,7 +14,6 @@ import {
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import NameChips from "./NameChips";
-import "./Settings.css";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import LocalBarIcon from "@material-ui/icons/LocalBar";
@@ -87,8 +86,11 @@ export default function Settings(props) {
           spacing={4}
           xs={8}
         >
-          <Grid item xs >
-            <Typography className={classes.text} style={{ textAlign: "center" }}>
+          <Grid item xs>
+            <Typography
+              className={classes.text}
+              style={{ textAlign: "center" }}
+            >
               {" "}
               Minimum/Maximum time (min) before spin
             </Typography>
@@ -111,14 +113,13 @@ export default function Settings(props) {
               }}
             />
           </Grid>
-          <Grid item xs  style={{ margin: "auto" }}>
+          <Grid item xs style={{ margin: "auto" }}>
             <Typography className={classes.text}>
               Max amt. of spinners
             </Typography>
             <Select
               error
-              IconComponent={()=>(<LocalBarIcon style={{fill: "white"}}/>)}
-
+              IconComponent={() => <LocalBarIcon style={{ fill: "white" }} />}
               color="primary"
               style={{ marginLeft: "40px" }}
               value={props.settings.amtSpinners}

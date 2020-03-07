@@ -5,8 +5,7 @@ import {
   Typography,
   TextField,
   Theme,
-  Button,
-  
+  Button
 } from "@material-ui/core";
 import {
   createMuiTheme,
@@ -21,8 +20,8 @@ const theme = createMuiTheme({
     primary: {
       main: "#ff3d42"
     },
-    error:{
-      main: "#ff3d42", 
+    error: {
+      main: "#ff3d42",
       color: "white"
     }
   }
@@ -35,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexWrap: "wrap"
     },
     input: {
-      color: "white", 
+      color: "white"
     },
     margin: {
       margin: theme.spacing(1)
@@ -85,11 +84,11 @@ export default function EnhancedTable(props) {
       </Grid>
       <Grid container item justify="center">
         <ThemeProvider theme={theme}>
-        <TextField
+          <TextField
             error
-            input={{ style: { color: '#fff' }}}
+            input={{ style: { color: "#fff" } }}
             InputLabelProps={{
-              style: {color: "white"}
+              style: { color: "white" }
             }}
             labelProps={{
               cclassName: classes1.input
