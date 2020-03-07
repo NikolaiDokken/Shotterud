@@ -109,7 +109,14 @@ export default function NameChips(props) {
           </Button>
         </ThemeProvider>
       </Grid>
-      <Grid container item direction row justify="center">
+      <Grid
+        container
+        item
+        direction
+        row
+        justify="center"
+        style={{ overflowY: "scroll", height: "25vh" }}
+      >
         {props.names.map(name => (
           <Chip
             label={name.name.toUpperCase()}

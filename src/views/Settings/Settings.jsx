@@ -10,7 +10,8 @@ import {
   Slider,
   MenuItem,
   Select,
-  makeStyles
+  makeStyles,
+  Button
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import NameChips from "./NameChips";
@@ -50,6 +51,7 @@ export default function Settings(props) {
 
   return (
     <Dialog
+      id="settings"
       PaperProps={{
         classes: {
           root: classes.background
@@ -79,14 +81,12 @@ export default function Settings(props) {
           direction="column"
           style={{
             padding: "16px 10%",
-            width: "inherit",
-            marginLeft: "auto",
-            marginRight: "auto"
+            width: "100%"
           }}
-          spacing={4}
-          xs={8}
+          alignItems="center"
+          spacing={2}
         >
-          <Grid item xs>
+          <Grid item style={{ width: "60%" }}>
             <Typography
               className={classes.text}
               style={{ textAlign: "center" }}
@@ -151,6 +151,17 @@ export default function Settings(props) {
               names={props.names}
               setNames={props.setNames}
             />
+          </Grid>
+          <Grid item xs>
+            <Button
+              variant="filled"
+              onClick={() => {
+                props.setNames([]);
+                window.sessionStorage.setItem("names", JSON.stringify([]));
+              }}
+            >
+              Delete all names
+            </Button>
           </Grid>
         </Grid>
       </ThemeProvider>
