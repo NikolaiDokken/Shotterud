@@ -1,7 +1,48 @@
 import React, { useEffect, useCallback } from "react";
-import { Chip, Grid, Typography, TextField, Button } from "@material-ui/core";
+import {
+  Chip,
+  Grid,
+  Typography,
+  TextField,
+  Theme,
+  Button
+} from "@material-ui/core";
+import {
+  createMuiTheme,
+  makeStyles,
+  createStyles
+} from "@material-ui/core/styles";
 
-export default function EnhancedTable(props) {
+import { ThemeProvider } from "@material-ui/styles";
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#ff3d42"
+    },
+    error: {
+      main: "#ff3d42",
+      color: "white"
+    }
+  }
+});
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      display: "flex",
+      flexWrap: "wrap"
+    },
+    input: {
+      color: "white"
+    },
+    margin: {
+      margin: theme.spacing(1)
+    }
+  })
+);
+
+export default function NameChips(props) {
   const addName = useCallback(() => {
     const newName = document.querySelector("#inputName").value;
     if (newName === "" || newName.length > 20) return;
@@ -10,6 +51,8 @@ export default function EnhancedTable(props) {
     document.querySelector("#inputName").value = "";
     window.sessionStorage.setItem("names", JSON.stringify(props.names));
   }, [props]);
+  const classes = props.css;
+  const classes1 = useStyles();
 
   const handleDelete = name => {
     props.setNames(props.names.filter(mapName => mapName !== name));
@@ -35,13 +78,36 @@ export default function EnhancedTable(props) {
   return (
     <Grid container direction="column" spacing={4}>
       <Grid container item justify="center">
-        <Typography variant="h4">Add Names</Typography>
+        <Typography className={classes.text} variant="h4">
+          Add Names
+        </Typography>
       </Grid>
       <Grid container item justify="center">
-        <TextField id="inputName" label="Add name"></TextField>
-        <Button variant="outlined" onClick={addName}>
-          Add
-        </Button>
+        <ThemeProvider theme={theme}>
+          <TextField
+            error
+            input={{ style: { color: "#fff" } }}
+            InputLabelProps={{
+              style: { color: "white" }
+            }}
+            labelProps={{
+              cclassName: classes1.input
+            }}
+            InputProps={{
+              className: classes1.input
+            }}
+            id="inputName"
+            label="Add name"
+          ></TextField>
+          <Button
+            className={classes.text}
+            color="primary"
+            variant="outlined"
+            onClick={addName}
+          >
+            Add
+          </Button>
+        </ThemeProvider>
       </Grid>
       <Grid container item direction row justify="center">
         {props.names.map(name => (
