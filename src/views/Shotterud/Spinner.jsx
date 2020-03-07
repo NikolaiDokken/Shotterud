@@ -57,7 +57,13 @@ export default function Spinner(props) {
               $("#log" + props.nr).append(
                 'Skål <span class="badge">' + text + "!</span>"
               );
-              $("#prev-names").append("<div>" + text + "</div>");
+              $("#prev-names").append(
+                "<p style=" +
+                  "color:#ff3d42;font-size:24px;border-right:groove;border-color:#ff3d42;padding-right:15px;padding-left:15px;margin-top:0px;margin-bottom:0px;" +
+                  ">" +
+                  text +
+                  "</p>"
+              );
               var scrollTarget = document.getElementById("prev-names");
               scrollTarget.scrollLeft = scrollTarget.scrollWidth;
             }

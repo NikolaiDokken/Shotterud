@@ -99,13 +99,13 @@ export default function Shotterud(props) {
           </Grid>
         </Grid>
       </AppBar>
-
       {names.length < 2 ? (
         <h1 className="header-text" style={{ marginTop: "40px" }}>
           Velkommen til <br /> SHOTTERUD
         </h1>
       ) : (
         <h1 className="header-text" style={{ marginTop: "40px" }}>
+          <br></br>
           SHOTTERUD
         </h1>
       )}
@@ -129,12 +129,12 @@ export default function Shotterud(props) {
           </Typography>
         </Grid>
       ) : null}
-      <div
+      <Grid 
+      container justify="center"
         style={{
           position: "absolute",
-          bottom: "6px",
-          left: "50%",
-          marginLeft: "-55px"
+          bottom: "6px",  
+          width: "100%"       
         }}
       >
         <Button
@@ -143,7 +143,7 @@ export default function Shotterud(props) {
         >
           Settings
         </Button>
-      </div>
+      </Grid>
 
       <Settings
         open={settingsOpen}
