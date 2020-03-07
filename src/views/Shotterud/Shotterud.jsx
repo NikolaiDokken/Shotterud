@@ -92,13 +92,15 @@ export default function Shotterud(props) {
       storedPrevNames.map(name => {
         $("#prev-names").append(
           "<p style=" +
-            "color:#ff3d42;font-size:24px;font-family:arial;text-transform:uppercase;border-left:groove;border-color:#ff3d42;padding-right:15px;padding-left:15px;margin-top:0px;margin-bottom:0px;" +
+            "color:#ff3d42;font-size:20px;font-family:arial;text-transform:uppercase;border-left:groove;border-color:#ff3d42;padding-right:15px;padding-left:15px;margin-top:0px;margin-bottom:0px;" +
             ">" +
             name +
             "</p>"
         );
         return null;
       });
+      var scrollTarget = document.getElementById("prev-names");
+      scrollTarget.scrollLeft = scrollTarget.scrollWidth;
     }
   }, [start]);
 
@@ -140,7 +142,10 @@ export default function Shotterud(props) {
             Velkommen til <br /> SHOTTERUD
           </h1>
         ) : (
-          <h1 className="header-text" style={{ marginTop: "40px" }}>
+          <h1
+            className="header-text"
+            style={{ marginTop: "40px", marginBottom: 0 }}
+          >
             SHOTTERUD
           </h1>
         )}

@@ -59,7 +59,7 @@ export default function Spinner(props) {
               );
               $("#prev-names").append(
                 "<p style=" +
-                  "color:#ff3d42;font-size:24px;font-family:arial;text-transform:uppercase;border-left:groove;border-color:#ff3d42;padding-right:15px;padding-left:15px;margin-top:0px;margin-bottom:0px;" +
+                  "color:#ff3d42;font-size:20px;font-family:arial;text-transform:uppercase;border-left:groove;border-color:#ff3d42;padding-right:15px;padding-left:15px;margin-top:0px;margin-bottom:0px;" +
                   ">" +
                   text +
                   "</p>"
