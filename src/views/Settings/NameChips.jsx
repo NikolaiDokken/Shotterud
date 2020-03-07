@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function EnhancedTable(props) {
+export default function NameChips(props) {
   const addName = useCallback(() => {
     const newName = document.querySelector("#inputName").value;
     if (newName === "" || newName.length > 20) return;
