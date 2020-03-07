@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core/styles";
 
 import { ThemeProvider } from "@material-ui/styles";
+import $ from "jquery";
 
 const theme = createMuiTheme({
   palette: {
@@ -68,8 +69,8 @@ export default function NameChips(props) {
       function(event) {
         // Number 13 is the "Enter" key on the keyboard
         if (event.key === "Enter") {
-          addName();
-        }
+          $("#addNameButton").click();
+        } else return null;
       },
       true
     );
@@ -100,6 +101,7 @@ export default function NameChips(props) {
             label="Add name"
           ></TextField>
           <Button
+            id="addNameButton"
             className={classes.text}
             color="primary"
             variant="outlined"
