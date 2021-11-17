@@ -8,6 +8,8 @@ import { HashRouter, Routes, Route } from "react-router-dom";
 import { writeToSessionStorage, readFromSessionStorage } from "./utils/utils";
 import themes from "./utils/themes.json";
 import CssBaseline from "@mui/material/CssBaseline";
+import christmasDecor from "./static/christmas_decor.png";
+
 function App() {
     const [names, setNames] = useState([]);
     const [prevNames, setPrevNames] = useState([]);
@@ -27,7 +29,10 @@ function App() {
             setNames(readNames);
         }
 
-        if (JSON.stringify(readSettings) !== JSON.stringify(settings)) {
+        if (
+            JSON.stringify(readSettings) !== JSON.stringify(settings) &&
+            readSettings !== null
+        ) {
             setSettings(readSettings);
         }
         setDataIsLoaded(true);
@@ -56,6 +61,13 @@ function App() {
                     settings={settings}
                     setSettings={setSettings}
                 />
+                {settings.theme === "christmas" ? (
+                    <img
+                        src={christmasDecor}
+                        alt="Christmas Decor"
+                        style={{ width: "100%" }}
+                    ></img>
+                ) : null}
                 <HashRouter>
                     <Routes>
                         <Route

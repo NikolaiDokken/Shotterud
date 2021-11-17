@@ -17,13 +17,13 @@
         "name": "Christmas",
         "palette": {
             "primary": {
-                "main": "#00873E"
+                "main": "#1E792C"
             },
             "secondary": {
-                "main": "#edf2ff"
+                "main": "#791E6B"
             },
             "background": {
-                "default": "#C30F16"
+                "default": "#CF3F45"
             }
         },
         "typography": {

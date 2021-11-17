@@ -7,11 +7,6 @@
     height: 100%;
     margin-right: 16px;
 }
-.topbox {
-    background: #303030;
-    background: #303030; /* Old browsers */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0f161d', endColorstr='#0f161d',GradientType=1 ); /* IE6-9 */
-}
 
 .rollbox {
     height: 103px;
@@ -72,7 +67,7 @@
 .log {
     text-align: center;
     font-size: 24px;
-    color: #ff3d42;
+    color: white;
     font-weight: bold;
     font-family: "Roboto";
     text-transform: uppercase;
@@ -90,15 +85,8 @@
 .roller {
     height: 90px;
     background: rgb(255, 61, 66);
-    background: linear-gradient(
-        90deg,
-        rgba(255, 61, 66, 0.6222864145658263) 0%,
-        rgba(255, 61, 66, 1) 50%,
-        rgba(255, 61, 66, 0.6166841736694677) 100%
-    );
     width: 180px;
     margin-right: 10px;
-    box-shadow: 0 0 5px 0 #ff3d42;
 }
 tr,
 table,

@@ -27,7 +27,12 @@ export default function TopBar({
                 <ArrowForwardIosIcon sx={{ mr: 1 }} />
                 <Box
                     id="prev-names"
-                    sx={{ display: "flex", flex: 1, alignItems: "center" }}
+                    sx={{
+                        display: "flex",
+                        flex: 1,
+                        alignItems: "center",
+                        overflowX: "auto",
+                    }}
                 >
                     {prevNames.map((name, index) =>
                         index !== 0 ? (

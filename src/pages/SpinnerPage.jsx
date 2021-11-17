@@ -103,12 +103,11 @@ export default function SpinnerPage({
     }, [start]);
 
     return (
-        <Box>
+        <Box sx={{ py: 4, px: 4 }}>
             <Box
                 sx={{
                     display: "flex",
                     justifyContent: "center",
-                    mt: 4,
                     color: theme.palette.getContrastText(
                         theme.palette.background.default
                     ),
@@ -122,9 +121,12 @@ export default function SpinnerPage({
                             : "SHOTTERUD"}
                     </Typography>
                 ) : (
-                    <Typography variant="h4">
-                        Velkommen til <br /> SHOTTERUD
-                    </Typography>
+                    <Box>
+                        <Typography variant="h4">SHOTTERUD</Typography>
+                        <Typography variant="h3" sx={{ mt: 10 }}>
+                            Add more players to begin
+                        </Typography>
+                    </Box>
                 )}
             </Box>
             <div id="spinners"></div>

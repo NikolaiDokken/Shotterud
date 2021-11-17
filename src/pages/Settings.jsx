@@ -42,6 +42,38 @@ export default function Settings({ settings, setSettings, names, setNames }) {
         }
     };
 
+    const handleSliderChange = (event, newValue, activeThumb) => {
+        const minDistance = 1;
+
+        if (!Array.isArray(newValue)) {
+            return;
+        }
+
+        if (activeThumb === 0) {
+            setSettings({
+                ...settings,
+                minMaxMinutes: [
+                    Math.min(
+                        newValue[0],
+                        settings.minMaxMinutes[1] - minDistance
+                    ),
+                    settings.minMaxMinutes[1],
+                ],
+            });
+        } else {
+            setSettings({
+                ...settings,
+                minMaxMinutes: [
+                    settings.minMaxMinutes[0],
+                    Math.max(
+                        newValue[1],
+                        settings.minMaxMinutes[0] + minDistance
+                    ),
+                ],
+            });
+        }
+    };
+
     return (
         <Box
             sx={{
@@ -57,18 +89,21 @@ export default function Settings({ settings, setSettings, names, setNames }) {
                 sx={{
                     maxWidth: "100%",
                     width: "600px",
-                    p: 4,
+                    pY: 2,
+                    px: 4,
                     textAlign: "center",
                 }}
             >
                 <Typography variant="h3" sx={{ mb: 4 }}>
                     Settings
                 </Typography>
-                <Typography>Minimum and Maximum Waiting Time</Typography>
+                <Typography>
+                    Minimum and Maximum Waiting Time (Minutes)
+                </Typography>
                 <Slider
                     name="minMaxMinutes"
                     value={settings.minMaxMinutes}
-                    onChange={handleChangeSettings}
+                    onChange={handleSliderChange}
                     valueLabelDisplay="auto"
                     sx={{ mb: 2 }}
                 />
@@ -89,6 +124,11 @@ export default function Settings({ settings, setSettings, names, setNames }) {
                         label="Spinners"
                         onChange={handleChangeSettings}
                         variant="standard"
+                        sx={{
+                            color: theme.palette.getContrastText(
+                                theme.palette.background.default
+                            ),
+                        }}
                     >
                         <MenuItem value={1}>One</MenuItem>
                         <MenuItem value={2}>Two</MenuItem>
@@ -119,6 +159,11 @@ export default function Settings({ settings, setSettings, names, setNames }) {
                                 </IconButton>
                             </InputAdornment>
                         }
+                        sx={{
+                            color: theme.palette.getContrastText(
+                                theme.palette.background.default
+                            ),
+                        }}
                     />
                 </Box>
                 <Box
@@ -130,6 +175,7 @@ export default function Settings({ settings, setSettings, names, setNames }) {
                                       "1px solid " +
                                       theme.palette.action.disabled,
                                   borderRadius: 1,
+                                  color: theme.palette.action.disabled,
                                   alignItems: "center",
                                   justifyContent: "center",
                                   textAlign: "center",
@@ -161,7 +207,8 @@ export default function Settings({ settings, setSettings, names, setNames }) {
                     )}
                 </Box>
                 <Button
-                    variant="outlined"
+                    variant="contained"
+                    color="primary"
                     startIcon={<DeleteIcon />}
                     onClick={() => setNames([])}
                 >
