@@ -1,0 +1,33 @@
+{
+    "default": {
+        "name": "Default",
+        "palette": {
+            "primary": {
+                "main": "#0052cc"
+            },
+            "secondary": {
+                "main": "#edf2ff"
+            }
+        },
+        "typography": {
+            "fontFamily": ["Roboto"]
+        }
+    },
+    "christmas": {
+        "name": "Christmas",
+        "palette": {
+            "primary": {
+                "main": "#00873E"
+            },
+            "secondary": {
+                "main": "#edf2ff"
+            },
+            "background": {
+                "default": "#C30F16"
+            }
+        },
+        "typography": {
+            "fontFamily": ["Roboto"]
+        }
+    }
+}
