@@ -1,9 +1,25 @@
-import { AppBar, IconButton, Toolbar, Typography, Box } from "@mui/material";
+import {
+    AppBar,
+    Toolbar,
+    Typography,
+    Box,
+    Button,
+    Select,
+    MenuItem,
+} from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import LocalBarIcon from "@mui/icons-material/LocalBar";
-import CloseIcon from "@mui/icons-material/Close";
+import ClearIcon from "@mui/icons-material/Clear";
+import themes from "../utils/themes.json";
+import { useTheme } from "@mui/material/styles";
 
-export default function TopBar({ prevNames, setPrevNames }) {
+export default function TopBar({
+    prevNames,
+    setPrevNames,
+    settings,
+    setSettings,
+}) {
+    const theme = useTheme();
     return (
         <AppBar position="static">
             <Toolbar>
@@ -32,14 +48,33 @@ export default function TopBar({ prevNames, setPrevNames }) {
                         )
                     )}
                 </Box>
-                <IconButton
-                    size="large"
+                <Button
+                    startIcon={<ClearIcon />}
                     color="inherit"
-                    aria-label="menu"
                     onClick={() => setPrevNames([])}
                 >
-                    <CloseIcon />
-                </IconButton>
+                    Clear
+                </Button>
+                <Select
+                    name="theme"
+                    value={settings.theme}
+                    label="Theme"
+                    onChange={(e) =>
+                        setSettings({ ...settings, theme: e.target.value })
+                    }
+                    size="small"
+                    sx={{
+                        ml: 2,
+                        color: theme.palette.primary.contrastText,
+                        borderColor: theme.palette.primary.contrastText,
+                    }}
+                >
+                    {Object.keys(themes).map((themeKey, index) => (
+                        <MenuItem key={index} value={themeKey}>
+                            {themes[themeKey].name}
+                        </MenuItem>
+                    ))}
+                </Select>
             </Toolbar>
         </AppBar>
     );

@@ -4,7 +4,6 @@ import "../styles/Spinner.css";
 
 export default function Spinner({ names, spinnerNr, prevNames, setPrevNames }) {
     const spin = useCallback(() => {
-        console.log("Spinner");
         let users = names;
         let shuffled = [];
         let loadout = $("#loadout" + spinnerNr);
@@ -58,8 +57,9 @@ export default function Spinner({ names, spinnerNr, prevNames, setPrevNames }) {
                             $("#log" + spinnerNr).append(
                                 'Skål <span class="badge">' + text + "!</span>"
                             );
-                            let newPrevnames = prevNames.concat(text);
-                            setPrevNames(newPrevnames);
+                            setPrevNames((previousState) =>
+                                [text].concat(previousState)
+                            );
                         }
                     });
             }

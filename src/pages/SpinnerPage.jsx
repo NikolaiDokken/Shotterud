@@ -3,7 +3,8 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import ReactDOM from "react-dom";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
+import { useTheme } from "@mui/material/styles";
 
 export default function SpinnerPage({
     names,
@@ -12,69 +13,114 @@ export default function SpinnerPage({
     setPrevNames,
 }) {
     const navigate = useNavigate();
+    const theme = useTheme();
+    const isMounted = useRef(false);
+
+    const getCurrentTime = () => {
+        const now = new Date();
+        return (
+            "[" +
+            now.getHours() +
+            ":" +
+            now.getMinutes() +
+            ":" +
+            now.getSeconds() +
+            "]"
+        );
+    };
 
     const spinnerGenerator = useCallback(() => {
-        let percentage = Math.random() * 101;
-        let doubleSpin = percentage > 80 && settings.amtSpinners >= 2;
-        let trippleSpin = percentage > 90 && settings.amtSpinners >= 3;
-        let quadroupleSpin = percentage > 95 && settings.amtSpinners >= 4;
-        let amt = 1;
-        if (quadroupleSpin) amt = 4;
-        else if (trippleSpin) amt = 3;
-        else if (doubleSpin) amt = 2;
-        return (
-            <Box>
-                {Array(amt)
-                    .fill()
-                    .map((spinner, index) => (
-                        <Spinner
-                            key={index}
-                            names={names}
-                            spinnerNr={index}
-                            prevNames={prevNames}
-                            setPrevNames={setPrevNames}
-                        />
-                    ))}
-            </Box>
-        );
+        if (isMounted.current) {
+            console.log(getCurrentTime() + " Generating Spinners...");
+            let percentage = Math.random() * 101;
+            let doubleSpin = percentage > 80 && settings.amtSpinners >= 2;
+            let trippleSpin = percentage > 90 && settings.amtSpinners >= 3;
+            let quadroupleSpin = percentage > 95 && settings.amtSpinners >= 4;
+            let amt = 1;
+            if (quadroupleSpin) amt = 4;
+            else if (trippleSpin) amt = 3;
+            else if (doubleSpin) amt = 2;
+            return (
+                <Box>
+                    {Array(amt)
+                        .fill()
+                        .map((spinner, index) => (
+                            <Spinner
+                                key={index}
+                                names={names}
+                                spinnerNr={index}
+                                prevNames={prevNames}
+                                setPrevNames={setPrevNames}
+                            />
+                        ))}
+                </Box>
+            );
+        }
         // eslint-disable-next-line
     }, [names, settings.amtSpinners, setPrevNames]);
 
     const randomTime = useCallback(() => {
+        console.log(getCurrentTime() + " Picking Random Time...");
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve();
-            }, (Math.random() * (settings.maximumMinutes * 60 - settings.minimumMinutes * 60) + settings.minimumMinutes * 60) * 1000);
+            }, (Math.random() * (settings.minMaxMinutes[1] * 60 - settings.minMaxMinutes[0] * 60) + settings.minMaxMinutes[0] * 60) * 1000);
         });
-    }, [settings.maximumMinutes, settings.minimumMinutes]);
+    }, [settings.minMaxMinutes]);
 
     const start = useCallback(async () => {
-        console.log("starter");
-        while (true) {
+        console.log(getCurrentTime() + " Starting Game...");
+        while (isMounted.current) {
             await randomTime().then(() => {
-                if (names.length > 1) {
-                    ReactDOM.render(
-                        spinnerGenerator(),
-                        document.getElementById("spinners")
-                    );
-                    setTimeout(() => {
+                if (isMounted.current) {
+                    if (names.length > 1) {
                         ReactDOM.render(
-                            "",
+                            spinnerGenerator(),
                             document.getElementById("spinners")
                         );
-                    }, 25000);
+                        setTimeout(() => {
+                            ReactDOM.render(
+                                "",
+                                document.getElementById("spinners")
+                            );
+                        }, 25000);
+                    }
                 }
             });
         }
     }, [names.length, randomTime, spinnerGenerator]);
 
-    useEffect(() => start(), [start]);
+    useEffect(() => {
+        isMounted.current = true;
+        if (names.length > 1) {
+            start();
+        }
+        return () => {
+            isMounted.current = false;
+            console.log("Stopping Game...");
+        };
+        // eslint-disable-next-line
+    }, [start]);
 
     return (
         <Box>
-            <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
-                {names.length > 2 ? (
-                    <Typography variant="h4">SHOHOHOTTERUD</Typography>
+            <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    mt: 4,
+                    color: theme.palette.getContrastText(
+                        theme.palette.background.default
+                    ),
+                    textAlign: "center",
+                }}
+            >
+                {names.length > 1 ? (
+                    <Typography variant="h4">
+                        {settings.theme === "christmas"
+                            ? "SHO-HO-HOTTERUD"
+                            : "SHOTTERUD"}
+                    </Typography>
                 ) : (
                     <Typography variant="h4">
                         Velkommen til <br /> SHOTTERUD
@@ -95,42 +141,3 @@ export default function SpinnerPage({
         </Box>
     );
 }
-
-/*
-            <div
-                id="spinners"
-                style={{ height: "100%", width: "100%", position: "absolute" }}
-            ></div>
-            {names.length < 2 ? (
-                <Grid
-                    container
-                    direction="row"
-                    justify="center"
-                    style={{ marginTop: "100px" }}
-                >
-                    <Typography
-                        className="infoText"
-                        variant="h5"
-                        style={{ textTransform: "uppercase" }}
-                    >
-                        Add more than 1 player
-                    </Typography>
-                </Grid>
-            ) : null}
-            <Grid
-                container
-                justify="center"
-                style={{
-                    position: "absolute",
-                    bottom: "6px",
-                    width: "100%",
-                }}
-            >
-                <Button
-                    onClick={() => setSettingsOpen(true)}
-                    style={{ color: "#ff3d42", fontSize: "24px" }}
-                >
-                    Settings
-                </Button>
-            </Grid>
-            */
