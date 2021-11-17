@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.e5540b46.chunk.css",
-    "main.js": "/static/js/main.eea89c82.chunk.js",
-    "main.js.map": "/static/js/main.eea89c82.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.a341d450.js",
-    "runtime-main.js.map": "/static/js/runtime-main.a341d450.js.map",
-    "static/js/2.2bd50b8c.chunk.js": "/static/js/2.2bd50b8c.chunk.js",
-    "static/js/2.2bd50b8c.chunk.js.map": "/static/js/2.2bd50b8c.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/main.e5540b46.chunk.css.map": "/static/css/main.e5540b46.chunk.css.map",
-    "static/js/2.2bd50b8c.chunk.js.LICENSE.txt": "/static/js/2.2bd50b8c.chunk.js.LICENSE.txt"
+    "main.css": "/Shotterud/static/css/main.e5540b46.chunk.css",
+    "main.js": "/Shotterud/static/js/main.eea89c82.chunk.js",
+    "main.js.map": "/Shotterud/static/js/main.eea89c82.chunk.js.map",
+    "runtime-main.js": "/Shotterud/static/js/runtime-main.11af27f2.js",
+    "runtime-main.js.map": "/Shotterud/static/js/runtime-main.11af27f2.js.map",
+    "static/js/2.2bd50b8c.chunk.js": "/Shotterud/static/js/2.2bd50b8c.chunk.js",
+    "static/js/2.2bd50b8c.chunk.js.map": "/Shotterud/static/js/2.2bd50b8c.chunk.js.map",
+    "index.html": "/Shotterud/index.html",
+    "static/css/main.e5540b46.chunk.css.map": "/Shotterud/static/css/main.e5540b46.chunk.css.map",
+    "static/js/2.2bd50b8c.chunk.js.LICENSE.txt": "/Shotterud/static/js/2.2bd50b8c.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.a341d450.js",
+    "static/js/runtime-main.11af27f2.js",
     "static/js/2.2bd50b8c.chunk.js",
     "static/css/main.e5540b46.chunk.css",
     "static/js/main.eea89c82.chunk.js"
