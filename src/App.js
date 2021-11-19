@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TopBar from "./components/TopBar";
-import "./App.css";
 import SpinnerPage from "./pages/SpinnerPage";
 import Settings from "./pages/Settings";
 import { HashRouter, Routes, Route } from "react-router-dom";
