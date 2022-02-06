@@ -53,13 +53,15 @@ export default function TopBar({
                         )
                     )}
                 </Box>
-                <Button
-                    startIcon={<ClearIcon />}
-                    color="inherit"
-                    onClick={() => setPrevNames([])}
-                >
-                    Clear
-                </Button>
+                {prevNames.length > 0 && (
+                    <Button
+                        startIcon={<ClearIcon />}
+                        color="inherit"
+                        onClick={() => setPrevNames([])}
+                    >
+                        Clear
+                    </Button>
+                )}
                 <Select
                     name="theme"
                     value={settings.theme}

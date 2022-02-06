@@ -29,5 +29,22 @@
         "typography": {
             "fontFamily": ["Roboto"]
         }
+    },
+    "reshjem": {
+        "name": "Reshjemfestivalen",
+        "palette": {
+            "primary": {
+                "main": "#78E3FD"
+            },
+            "secondary": {
+                "main": "#D1F5FF"
+            },
+            "background": {
+                "default": "#7D53DE"
+            }
+        },
+        "typography": {
+            "fontFamily": ["Roboto"]
+        }
     }
 }
