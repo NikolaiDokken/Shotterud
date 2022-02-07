@@ -1,8 +1,12 @@
 import React, { useCallback, useEffect } from "react";
-import $ from "jquery";
-import "../styles/Spinner.css";
+import { Box, Grid } from "@mui/material";
+// import $ from "jquery";
+// import "../styles/Spinner.css";
 
 export default function Spinner({ names, spinnerNr, prevNames, setPrevNames }) {
+    const NAME_BOX_WIDTH = 200;
+    const NAME_BOX_HEIGHT = 100;
+    /*
     const spin = useCallback(() => {
         let users = names;
         let shuffled = [];
@@ -66,15 +70,15 @@ export default function Spinner({ names, spinnerNr, prevNames, setPrevNames }) {
         );
         // eslint-disable-next-line
     }, [names, setPrevNames, spinnerNr]);
-
+    
     function randomEx(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
-
+    
     function shuffle(arr) {
         var counter = arr.length,
-            temp,
-            index;
+        temp,
+        index;
         while (counter > 0) {
             index = (Math.random() * counter--) | 0;
             temp = arr[counter];
@@ -83,26 +87,46 @@ export default function Spinner({ names, spinnerNr, prevNames, setPrevNames }) {
         }
     }
     useEffect(() => spin(), [spin]);
+    */
 
     return (
-        <div className="container">
-            <div className="row topbox">
-                <div className="col-md-6 col-md-offset-3 rollbox">
-                    <div className="line"></div>
-                    <table>
-                        <tbody>
-                            <tr
-                                className="loadout"
-                                id={"loadout" + spinnerNr}
-                            ></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div className="col-md-12" style={{ textAlign: "center" }}>
-                <div className="log" id={"log" + spinnerNr}></div>
-            </div>
-        </div>
+        <Box
+            sx={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                width: 1,
+                overflowX: "hidden",
+            }}
+        >
+            {names.map((name, index) => (
+                <Box
+                    key={index}
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        height: NAME_BOX_HEIGHT,
+                        minWidth: NAME_BOX_WIDTH,
+                        maxWidth: NAME_BOX_WIDTH,
+                        backgroundColor: "red",
+                        mr: index === names.length - 1 ? 0 : 1,
+                        wordBreak: "break-word",
+                        textAlign: "center",
+                    }}
+                >
+                    {name}
+                </Box>
+            ))}
+            <Box
+                sx={{
+                    width: 4,
+                    height: NAME_BOX_HEIGHT + 20,
+                    backgroundColor: "blue",
+                    position: "absolute",
+                    left: "50%",
+                }}
+            />
+        </Box>
     );
 }

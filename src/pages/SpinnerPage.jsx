@@ -93,7 +93,7 @@ export default function SpinnerPage({
     useEffect(() => {
         isMounted.current = true;
         if (names.length > 1) {
-            start();
+            // start();
         }
         return () => {
             isMounted.current = false;
@@ -103,7 +103,7 @@ export default function SpinnerPage({
     }, [start]);
 
     return (
-        <Box sx={{ py: 4, px: 4 }}>
+        <Box sx={{ p: 4 }}>
             <Box
                 sx={{
                     display: "flex",
@@ -129,7 +129,13 @@ export default function SpinnerPage({
                     </Box>
                 )}
             </Box>
-            <div id="spinners"></div>
+            <div id="spinners">
+                <Spinner
+                    names={names}
+                    prevNames={prevNames}
+                    setPrevNames={setPrevNames}
+                />
+            </div>
             <Fab
                 color="primary"
                 variant="extended"
