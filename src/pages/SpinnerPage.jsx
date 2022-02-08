@@ -131,6 +131,7 @@ export default function SpinnerPage({
             </Box>
             <div id="spinners">
                 <Spinner
+                    index={1}
                     names={names}
                     prevNames={prevNames}
                     setPrevNames={setPrevNames}
