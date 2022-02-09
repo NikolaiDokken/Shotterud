@@ -49,7 +49,6 @@ export default function SpinnerPage({
                                 key={index}
                                 names={names}
                                 spinnerNr={index}
-                                prevNames={prevNames}
                                 setPrevNames={setPrevNames}
                             />
                         ))}
@@ -83,7 +82,7 @@ export default function SpinnerPage({
                                 "",
                                 document.getElementById("spinners")
                             );
-                        }, 25000);
+                        }, 20000);
                     }
                 }
             });
@@ -93,7 +92,7 @@ export default function SpinnerPage({
     useEffect(() => {
         isMounted.current = true;
         if (names.length > 1) {
-            // start();
+            start();
         }
         return () => {
             isMounted.current = false;
@@ -129,14 +128,7 @@ export default function SpinnerPage({
                     </Box>
                 )}
             </Box>
-            <div id="spinners">
-                <Spinner
-                    index={1}
-                    names={names}
-                    prevNames={prevNames}
-                    setPrevNames={setPrevNames}
-                />
-            </div>
+            <div id="spinners"></div>
             <Fab
                 color="primary"
                 variant="extended"
