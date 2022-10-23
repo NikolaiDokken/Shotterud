@@ -46,5 +46,19 @@
         "typography": {
             "fontFamily": ["Roboto"]
         }
+    },
+    "san_diego": {
+        "name": "San Diego",
+        "palette": {
+            "primary": {
+                "main": "#01d09a"
+            },
+            "secondary": {
+                "main": "#fd4890"
+            },
+            "background": {
+                "default": "#e0edea"
+            }
+        }
     }
 }
