@@ -1,21 +1,20 @@
 {
   "files": {
-    "main.css": "/Shotterud/static/css/main.9a59f899.chunk.css",
-    "main.js": "/Shotterud/static/js/main.02e9d0f9.chunk.js",
-    "main.js.map": "/Shotterud/static/js/main.02e9d0f9.chunk.js.map",
-    "runtime-main.js": "/Shotterud/static/js/runtime-main.37e7358c.js",
-    "runtime-main.js.map": "/Shotterud/static/js/runtime-main.37e7358c.js.map",
-    "static/js/2.1ce691ac.chunk.js": "/Shotterud/static/js/2.1ce691ac.chunk.js",
-    "static/js/2.1ce691ac.chunk.js.map": "/Shotterud/static/js/2.1ce691ac.chunk.js.map",
+    "main.css": "/Shotterud/static/css/main.aeb60498.css",
+    "main.js": "/Shotterud/static/js/main.693ef42e.js",
+    "static/media/christmas_decor.png": "/Shotterud/static/media/christmas_decor.28d6bdc3b09dd4497c9c.png",
+    "static/media/halloweendecor.png": "/Shotterud/static/media/halloweendecor.f5e0919ad1cccee02209.png",
+    "static/media/SanDiegoDecor.png": "/Shotterud/static/media/SanDiegoDecor.f823e54d7241b85e2d82.png",
+    "static/media/Hoho.mp3": "/Shotterud/static/media/Hoho.5a598d810e8516235a0b.mp3",
+    "static/media/Bingbang.mp3": "/Shotterud/static/media/Bingbang.93fc3572e3e4ae19e2f9.mp3",
+    "static/media/halloween.svg": "/Shotterud/static/media/halloween.bf09df15e435f516b828c537430872c1.svg",
+    "static/media/SanDiegoIndicator.svg": "/Shotterud/static/media/SanDiegoIndicator.2654067a1e4b2bf024d2d6c74f3223f9.svg",
     "index.html": "/Shotterud/index.html",
-    "static/css/main.9a59f899.chunk.css.map": "/Shotterud/static/css/main.9a59f899.chunk.css.map",
-    "static/js/2.1ce691ac.chunk.js.LICENSE.txt": "/Shotterud/static/js/2.1ce691ac.chunk.js.LICENSE.txt",
-    "static/media/christmas_decor.28d6bdc3.png": "/Shotterud/static/media/christmas_decor.28d6bdc3.png"
+    "main.aeb60498.css.map": "/Shotterud/static/css/main.aeb60498.css.map",
+    "main.693ef42e.js.map": "/Shotterud/static/js/main.693ef42e.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.37e7358c.js",
-    "static/js/2.1ce691ac.chunk.js",
-    "static/css/main.9a59f899.chunk.css",
-    "static/js/main.02e9d0f9.chunk.js"
+    "static/css/main.aeb60498.css",
+    "static/js/main.693ef42e.js"
   ]
 }

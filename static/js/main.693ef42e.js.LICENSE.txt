@@ -4,31 +4,6 @@ object-assign
 @license MIT
 */
 
-/*!
-   * Sizzle CSS Selector Engine v2.3.6
-   * https://sizzlejs.com/
-   *
-   * Copyright JS Foundation and other contributors
-   * Released under the MIT license
-   * https://js.foundation/
-   *
-   * Date: 2021-02-16
-   */
-
-/*!
- * jQuery JavaScript Library v3.6.0
- * https://jquery.com/
- *
- * Includes Sizzle.js
- * https://sizzlejs.com/
- *
- * Copyright OpenJS Foundation and other contributors
- * Released under the MIT license
- * https://jquery.org/license
- *
- * Date: 2021-03-02T17:08Z
- */
-
 /**
  * React Router v6.2.1
  *
@@ -40,7 +15,7 @@ object-assign
  * @license MIT
  */
 
-/** @license MUI v5.3.0
+/** @license MUI v5.4.1
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
