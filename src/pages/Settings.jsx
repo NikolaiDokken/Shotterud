@@ -11,6 +11,7 @@ import {
     OutlinedInput,
     Chip,
     Button,
+    Stack,
 } from "@mui/material";
 import LocalBarIcon from "@mui/icons-material/LocalBar";
 import { useNavigate } from "react-router-dom";
@@ -53,10 +54,7 @@ export default function Settings({ settings, setSettings, names, setNames }) {
             setSettings({
                 ...settings,
                 minMaxMinutes: [
-                    Math.min(
-                        newValue[0],
-                        settings.minMaxMinutes[1] - minDistance
-                    ),
+                    Math.min(newValue[0], settings.minMaxMinutes[1] - minDistance),
                     settings.minMaxMinutes[1],
                 ],
             });
@@ -65,10 +63,7 @@ export default function Settings({ settings, setSettings, names, setNames }) {
                 ...settings,
                 minMaxMinutes: [
                     settings.minMaxMinutes[0],
-                    Math.max(
-                        newValue[1],
-                        settings.minMaxMinutes[0] + minDistance
-                    ),
+                    Math.max(newValue[1], settings.minMaxMinutes[0] + minDistance),
                 ],
             });
         }
@@ -80,16 +75,13 @@ export default function Settings({ settings, setSettings, names, setNames }) {
                 display: "flex",
                 width: "100%",
                 justifyContent: "center",
-                color: theme.palette.getContrastText(
-                    theme.palette.background.default
-                ),
             }}
         >
             <Box
                 sx={{
                     maxWidth: "100%",
                     width: "600px",
-                    pY: 2,
+                    py: 2,
                     px: 4,
                     textAlign: "center",
                 }}
@@ -97,16 +89,24 @@ export default function Settings({ settings, setSettings, names, setNames }) {
                 <Typography variant="h3" sx={{ mb: 4 }}>
                     Settings
                 </Typography>
-                <Typography>
-                    Minimum and Maximum Waiting Time (Minutes)
-                </Typography>
+                <Typography>Minimum and Maximum Waiting Time (Minutes)</Typography>
                 <Slider
                     name="minMaxMinutes"
                     value={settings.minMaxMinutes}
                     onChange={handleSliderChange}
                     valueLabelDisplay="auto"
-                    sx={{ mb: 2 }}
                 />
+                <Stack direction="row" justifyContent={"center"} spacing={2} sx={{ mb: 2 }}>
+                    <Button variant="outlined" onClick={() => setSettings({ ...settings, minMaxMinutes: [5, 10] })}>
+                        5-10
+                    </Button>
+                    <Button variant="outlined" onClick={() => setSettings({ ...settings, minMaxMinutes: [5, 15] })}>
+                        5-15
+                    </Button>
+                    <Button variant="outlined" onClick={() => setSettings({ ...settings, minMaxMinutes: [10, 20] })}>
+                        10-20
+                    </Button>
+                </Stack>
                 <Box
                     sx={{
                         display: "flex",
@@ -115,9 +115,7 @@ export default function Settings({ settings, setSettings, names, setNames }) {
                         mb: 2,
                     }}
                 >
-                    <Typography sx={{ flex: 1, textAlign: "left" }}>
-                        Maximum number of spinners:{" "}
-                    </Typography>
+                    <Typography sx={{ flex: 1, textAlign: "left" }}>Maximum number of spinners: </Typography>
                     <Select
                         name="amtSpinners"
                         value={settings.amtSpinners}
@@ -125,15 +123,12 @@ export default function Settings({ settings, setSettings, names, setNames }) {
                         onChange={handleChangeSettings}
                         variant="standard"
                         sx={{
-                            color: theme.palette.getContrastText(
-                                theme.palette.background.default
-                            ),
+                            color: theme.palette.getContrastText(theme.palette.background.default),
                         }}
                     >
                         <MenuItem value={1}>One</MenuItem>
                         <MenuItem value={2}>Two</MenuItem>
                         <MenuItem value={3}>Three</MenuItem>
-                        <MenuItem value={4}>Four</MenuItem>
                     </Select>
                 </Box>
                 <Box
@@ -144,9 +139,7 @@ export default function Settings({ settings, setSettings, names, setNames }) {
                         mb: 2,
                     }}
                 >
-                    <Typography sx={{ flex: 1, textAlign: "left" }}>
-                        Add players:
-                    </Typography>
+                    <Typography sx={{ flex: 1, textAlign: "left" }}>Add players:</Typography>
                     <OutlinedInput
                         value={name}
                         placeholder="Name"
@@ -160,9 +153,7 @@ export default function Settings({ settings, setSettings, names, setNames }) {
                             </InputAdornment>
                         }
                         sx={{
-                            color: theme.palette.getContrastText(
-                                theme.palette.background.default
-                            ),
+                            color: theme.palette.getContrastText(theme.palette.background.default),
                         }}
                     />
                 </Box>
@@ -171,9 +162,7 @@ export default function Settings({ settings, setSettings, names, setNames }) {
                         names.length === 0
                             ? {
                                   display: "flex",
-                                  border:
-                                      "1px solid " +
-                                      theme.palette.action.disabled,
+                                  border: "1px solid " + theme.palette.action.disabled,
                                   borderRadius: 1,
                                   color: theme.palette.action.disabled,
                                   alignItems: "center",
@@ -206,12 +195,7 @@ export default function Settings({ settings, setSettings, names, setNames }) {
                         <Typography variant="h4">No Players :(</Typography>
                     )}
                 </Box>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    startIcon={<DeleteIcon />}
-                    onClick={() => setNames([])}
-                >
+                <Button variant="contained" color="primary" startIcon={<DeleteIcon />} onClick={() => setNames([])}>
                     Delete All
                 </Button>
                 <Fab
