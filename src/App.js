@@ -5,9 +5,9 @@ import SpinnerPage from "./pages/SpinnerPage";
 import Settings from "./pages/Settings";
 import { HashRouter, Routes, Route } from "react-router-dom";
 import { writeToSessionStorage, readFromSessionStorage } from "./utils/utils";
-import themes from "./utils/themes.json";
+import { themes } from "./utils/themes";
 import CssBaseline from "@mui/material/CssBaseline";
-import christmasDecor from "./static/christmas_decor.png";
+import { Box } from "@mui/material";
 
 function App() {
     const [names, setNames] = useState([]);
@@ -18,7 +18,6 @@ function App() {
         theme: "default",
     });
     const [dataIsLoaded, setDataIsLoaded] = useState(false);
-    // const [theme, setTheme] = useState(themes.christmas);
 
     useEffect(() => {
         // Reads names and settings from sessionStorage
@@ -28,10 +27,7 @@ function App() {
             setNames(readNames);
         }
 
-        if (
-            JSON.stringify(readSettings) !== JSON.stringify(settings) &&
-            readSettings !== null
-        ) {
+        if (JSON.stringify(readSettings) !== JSON.stringify(settings) && readSettings !== null) {
             setSettings(readSettings);
         }
         setDataIsLoaded(true);
@@ -52,48 +48,43 @@ function App() {
 
     if (dataIsLoaded) {
         return (
-            <ThemeProvider theme={createTheme(themes[settings.theme])}>
-                <CssBaseline />
-                <TopBar
-                    prevNames={prevNames}
-                    setPrevNames={setPrevNames}
-                    settings={settings}
-                    setSettings={setSettings}
-                />
-                {settings.theme === "christmas" ? (
-                    <img
-                        src={christmasDecor}
-                        alt="Christmas Decor"
-                        style={{ width: "100%" }}
-                    ></img>
-                ) : null}
-                <HashRouter>
-                    <Routes>
-                        <Route
-                            path="/"
-                            element={
-                                <SpinnerPage
-                                    names={names}
-                                    settings={settings}
-                                    prevNames={prevNames}
-                                    setPrevNames={setPrevNames}
-                                />
-                            }
-                        />
-                        <Route
-                            path="/settings"
-                            element={
-                                <Settings
-                                    settings={settings}
-                                    setSettings={setSettings}
-                                    names={names}
-                                    setNames={setNames}
-                                />
-                            }
-                        />
-                    </Routes>
-                </HashRouter>
-            </ThemeProvider>
+            <Box id="app" sx={{ display: "flex", flexDirection: "column", flex: 1, height: "100vh" }}>
+                <ThemeProvider theme={createTheme(themes[settings.theme])}>
+                    <CssBaseline />
+                    <TopBar
+                        prevNames={prevNames}
+                        setPrevNames={setPrevNames}
+                        settings={settings}
+                        setSettings={setSettings}
+                    />
+                    <HashRouter>
+                        <Routes>
+                            <Route
+                                path="/"
+                                element={
+                                    <SpinnerPage
+                                        names={names}
+                                        settings={settings}
+                                        prevNames={prevNames}
+                                        setPrevNames={setPrevNames}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/settings"
+                                element={
+                                    <Settings
+                                        settings={settings}
+                                        setSettings={setSettings}
+                                        names={names}
+                                        setNames={setNames}
+                                    />
+                                }
+                            />
+                        </Routes>
+                    </HashRouter>
+                </ThemeProvider>
+            </Box>
         );
     } else {
         return <div>Loading...</div>;

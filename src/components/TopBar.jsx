@@ -1,27 +1,12 @@
-import {
-    AppBar,
-    Toolbar,
-    Typography,
-    Box,
-    Button,
-    Select,
-    MenuItem,
-} from "@mui/material";
+import { AppBar, Toolbar, Typography, Box, Button, Select, MenuItem } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import LocalBarIcon from "@mui/icons-material/LocalBar";
 import ClearIcon from "@mui/icons-material/Clear";
-import themes from "../utils/themes.json";
-import { useTheme } from "@mui/material/styles";
+import { themes } from "../utils/themes";
 
-export default function TopBar({
-    prevNames,
-    setPrevNames,
-    settings,
-    setSettings,
-}) {
-    const theme = useTheme();
+export default function TopBar({ prevNames, setPrevNames, settings, setSettings }) {
     return (
-        <AppBar position="static">
+        <AppBar position="sticky" id="topBar">
             <Toolbar>
                 <LocalBarIcon sx={{ mr: 1 }} />
                 <ArrowForwardIosIcon sx={{ mr: 1 }} />
@@ -54,26 +39,20 @@ export default function TopBar({
                     )}
                 </Box>
                 {prevNames.length > 0 && (
-                    <Button
-                        startIcon={<ClearIcon />}
-                        color="inherit"
-                        onClick={() => setPrevNames([])}
-                    >
+                    <Button startIcon={<ClearIcon />} color="inherit" onClick={() => setPrevNames([])}>
                         Clear
                     </Button>
                 )}
                 <Select
                     name="theme"
                     value={settings.theme}
-                    label="Theme"
-                    onChange={(e) =>
-                        setSettings({ ...settings, theme: e.target.value })
-                    }
+                    onChange={(e) => {
+                        setSettings({ ...settings, theme: e.target.value });
+                        window.location.reload();
+                    }}
                     size="small"
                     sx={{
                         ml: 2,
-                        color: theme.palette.primary.contrastText,
-                        borderColor: theme.palette.primary.contrastText,
                     }}
                 >
                     {Object.keys(themes).map((themeKey, index) => (
