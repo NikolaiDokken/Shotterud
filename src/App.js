@@ -3,7 +3,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TopBar from "./components/TopBar";
 import SpinnerPage from "./pages/SpinnerPage";
 import Settings from "./pages/Settings";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { writeToSessionStorage, readFromSessionStorage } from "./utils/utils";
 import { themes } from "./utils/themes";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -57,7 +57,7 @@ function App() {
                         settings={settings}
                         setSettings={setSettings}
                     />
-                    <HashRouter>
+                    <BrowserRouter>
                         <Routes>
                             <Route
                                 path="/"
@@ -82,7 +82,7 @@ function App() {
                                 }
                             />
                         </Routes>
-                    </HashRouter>
+                    </BrowserRouter>
                 </ThemeProvider>
             </Box>
         );

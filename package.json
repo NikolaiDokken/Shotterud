@@ -1,6 +1,5 @@
 {
     "name": "shotterud",
-    "homepage": "https://nikolaidokken.github.io/Shotterud/#/",
     "version": "0.1.0",
     "private": true,
     "dependencies": {
