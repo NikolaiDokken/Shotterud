@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
+import { shuffle } from "../utils/utils";
+import { SPIN_DELAY_MS } from "../utils/spinTiming";
 import styles from "./Spinner.module.css";
 
-const SPIN_DELAY_MS = 1000;
-const SPIN_TIME = 15;
 // Keep these in sync with Spinner.module.css
 const NAME_BOX_WIDTH = 220;
 const NAME_BOX_GAP = 10;
@@ -18,19 +18,6 @@ const ROW_LENGTH = 1000;
  */
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
-}
-
-/**
- * Function that shuffles array in place using Fisher-Yates Shuffle
- * @param {array} array
- * @returns shuffled array
- */
-function shuffle(array) {
-    for (let m = array.length - 1; m > 0; m--) {
-        const i = Math.floor(Math.random() * (m + 1));
-        [array[m], array[i]] = [array[i], array[m]];
-    }
-    return array;
 }
 
 /**
@@ -50,7 +37,7 @@ function createSpin(names) {
     };
 }
 
-export default function Spinner({ names, setPrevNames }) {
+export default function Spinner({ names, spinSeconds, setPrevNames }) {
     const [spin] = useState(() => createSpin(names));
     // Row offset in px; null until the spin starts, while the row waits off-screen to the right
     const [position, setPosition] = useState(null);
@@ -67,13 +54,13 @@ export default function Spinner({ names, setPrevNames }) {
             revealTimer = setTimeout(() => {
                 setIsDone(true);
                 setPrevNames((prevNames) => [winner, ...prevNames]);
-            }, SPIN_TIME * 1000);
+            }, spinSeconds * 1000);
         }, SPIN_DELAY_MS);
         return () => {
             clearTimeout(spinTimer);
             clearTimeout(revealTimer);
         };
-    }, [spin, winner, setPrevNames]);
+    }, [spin, winner, spinSeconds, setPrevNames]);
 
     return (
         <div className={styles.spinner}>
@@ -83,7 +70,7 @@ export default function Spinner({ names, setPrevNames }) {
                         className={styles.row}
                         style={{
                             transform: position === null ? "translateX(100vw)" : `translateX(${position}px)`,
-                            transitionDuration: `${SPIN_TIME}s`,
+                            transitionDuration: `${spinSeconds}s`,
                         }}
                     >
                         {spin.nameList.map((name, index) => (

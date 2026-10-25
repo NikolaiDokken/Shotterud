@@ -3,11 +3,9 @@ import { useNavigate } from "react-router";
 import Spinner from "../components/Spinner";
 import { useEffect, useState } from "react";
 import { themes } from "../utils/themes";
+import { getRoundDuration, getSpinDurations } from "../utils/spinTiming";
 import LiveIndicator from "../components/LiveIndicator/LiveIndicator";
 import styles from "./SpinnerPage.module.css";
-
-// How long the spinners stay on screen after a round starts
-const ROUND_DURATION_MS = 25000;
 
 const playerList = new Intl.ListFormat("en", { type: "conjunction" });
 
@@ -26,8 +24,8 @@ export default function SpinnerPage({ names, settings, setPrevNames }) {
         if (!hasEnoughPlayers) {
             return;
         }
-        // The minimum is padded so a new round never starts while the previous one is still showing
-        const minSeconds = (minMaxMinutes[0] + 0.42) * 60;
+        // The wait starts when the previous round has left the screen
+        const minSeconds = minMaxMinutes[0] * 60;
         const maxSeconds = minMaxMinutes[1] * 60;
         let waitTimer;
         let hideTimer;
@@ -41,7 +39,8 @@ export default function SpinnerPage({ names, settings, setPrevNames }) {
                 let amt = 1;
                 if (percentage > 90 && amtSpinners >= 3) amt = 3;
                 else if (percentage > 80 && amtSpinners >= 2) amt = 2;
-                setRound({ id: Date.now(), amtSpinners: amt });
+                const spinDurations = getSpinDurations(amt);
+                setRound({ id: Date.now(), spinDurations });
 
                 if (themes[theme].audio) {
                     // Browsers block autoplay until the user has interacted with the page
@@ -49,8 +48,10 @@ export default function SpinnerPage({ names, settings, setPrevNames }) {
                         .play()
                         .catch((error) => console.warn("Could not play round sound:", error.message));
                 }
-                hideTimer = setTimeout(() => setRound(null), ROUND_DURATION_MS);
-                scheduleRound();
+                hideTimer = setTimeout(() => {
+                    setRound(null);
+                    scheduleRound();
+                }, getRoundDuration(spinDurations));
             }, delay);
         };
 
@@ -74,9 +75,9 @@ export default function SpinnerPage({ names, settings, setPrevNames }) {
                     {themes[theme].title}
                 </h1>
                 {round ? (
-                    <div key={round.id} className={styles.reels} data-count={round.amtSpinners}>
-                        {Array.from({ length: round.amtSpinners }, (_, index) => (
-                            <Spinner key={index} names={names} setPrevNames={setPrevNames} />
+                    <div key={round.id} className={styles.reels} data-count={round.spinDurations.length}>
+                        {round.spinDurations.map((spinSeconds, index) => (
+                            <Spinner key={index} names={names} spinSeconds={spinSeconds} setPrevNames={setPrevNames} />
                         ))}
                     </div>
                 ) : hasEnoughPlayers ? (

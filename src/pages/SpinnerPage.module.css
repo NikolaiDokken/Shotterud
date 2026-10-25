@@ -23,7 +23,7 @@
     align-items: center;
     flex: 1;
     gap: 24px;
-    padding: 32px 0;
+    padding: 16px 0;
     text-align: center;
 }
 
@@ -71,7 +71,8 @@
 .reels[data-count="3"] {
     --tile-height: 88px;
     --result-size: clamp(1.75rem, 4vw, 2.75rem);
-    gap: 8px;
+    /* Room for each needle's top pointer below the previous spinner's result */
+    gap: 16px;
 }
 
 .footer {
