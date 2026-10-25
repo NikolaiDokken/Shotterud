@@ -1,7 +1,16 @@
-export const writeToSessionStorage = (key, value) => {
-    window.sessionStorage.setItem(key, value);
+/**
+ * Reads a JSON value from sessionStorage
+ * @param {string} key
+ * @param {*} fallback returned when the key is missing or the stored value isn't valid JSON
+ */
+export const loadFromSessionStorage = (key, fallback) => {
+    try {
+        return JSON.parse(window.sessionStorage.getItem(key)) ?? fallback;
+    } catch {
+        return fallback;
+    }
 };
 
-export const readFromSessionStorage = (key) => {
-    return window.sessionStorage.getItem(key);
+export const saveToSessionStorage = (key, value) => {
+    window.sessionStorage.setItem(key, JSON.stringify(value));
 };

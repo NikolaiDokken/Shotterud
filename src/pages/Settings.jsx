@@ -29,7 +29,11 @@ export default function Settings({ settings, setSettings, names, setNames }) {
     };
 
     const handleAddName = () => {
-        setNames((prevState) => prevState.concat(name));
+        const trimmedName = name.trim();
+        // Names double as identifiers when deleting, so empty and duplicate names are skipped
+        if (trimmedName && !names.includes(trimmedName)) {
+            setNames((prevState) => prevState.concat(trimmedName));
+        }
         setName("");
     };
 
@@ -37,8 +41,8 @@ export default function Settings({ settings, setSettings, names, setNames }) {
         setNames(names.filter((name) => name !== nameToDelete));
     };
 
-    const handleKeyPress = (e) => {
-        if (e.keyCode === 13) {
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
             handleAddName();
         }
     };
@@ -144,7 +148,7 @@ export default function Settings({ settings, setSettings, names, setNames }) {
                         value={name}
                         placeholder="Name"
                         onChange={(e) => setName(e.target.value)}
-                        onKeyDown={handleKeyPress}
+                        onKeyDown={handleKeyDown}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton onClick={handleAddName}>
@@ -182,9 +186,9 @@ export default function Settings({ settings, setSettings, names, setNames }) {
                     }
                 >
                     {names.length > 0 ? (
-                        names.map((name, index) => (
+                        names.map((name) => (
                             <Chip
-                                key={index}
+                                key={name}
                                 label={name}
                                 sx={{ mr: 1 }}
                                 color="primary"
@@ -201,7 +205,6 @@ export default function Settings({ settings, setSettings, names, setNames }) {
                 <Fab
                     color="primary"
                     variant="extended"
-                    aria-label="add"
                     sx={{ position: "absolute", bottom: 16, right: 16 }}
                     onClick={() => navigate("/")}
                 >

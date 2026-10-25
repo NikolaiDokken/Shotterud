@@ -42,7 +42,10 @@ export default function SpinnerPage({ names, settings, setPrevNames }) {
                 setRound({ id: Date.now(), amtSpinners: amt });
 
                 if (themes[theme].audio) {
-                    new Audio(themes[theme].audio).play();
+                    // Browsers block autoplay until the user has interacted with the page
+                    new Audio(themes[theme].audio)
+                        .play()
+                        .catch((error) => console.warn("Could not play round sound:", error.message));
                 }
                 hideTimer = setTimeout(() => setRound(null), ROUND_DURATION_MS);
                 scheduleRound();
@@ -84,7 +87,7 @@ export default function SpinnerPage({ names, settings, setPrevNames }) {
                                     {themes[theme].title}
                                 </Typography>
                                 {Array.from({ length: round.amtSpinners }, (_, index) => (
-                                    <Spinner key={index} names={names} spinnerNr={index} setPrevNames={setPrevNames} />
+                                    <Spinner key={index} names={names} setPrevNames={setPrevNames} />
                                 ))}
                             </Box>
                         )}
@@ -105,7 +108,6 @@ export default function SpinnerPage({ names, settings, setPrevNames }) {
                 <Fab
                     color="primary"
                     variant="extended"
-                    aria-label="add"
                     sx={{ position: "absolute", bottom: 16, right: 16 }}
                     onClick={() => navigate("/settings")}
                 >

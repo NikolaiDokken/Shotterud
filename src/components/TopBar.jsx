@@ -46,10 +46,7 @@ export default function TopBar({ prevNames, setPrevNames, settings, setSettings 
                 <Select
                     name="theme"
                     value={settings.theme}
-                    onChange={(e) => {
-                        setSettings({ ...settings, theme: e.target.value });
-                        window.location.reload();
-                    }}
+                    onChange={(e) => setSettings({ ...settings, theme: e.target.value })}
                     size="small"
                     sx={{
                         ml: 2,

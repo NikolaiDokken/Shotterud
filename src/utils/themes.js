@@ -22,9 +22,6 @@ export const themes = {
                 default: "#191414",
             },
         },
-        typography: {
-            fontFamily: ["Roboto"],
-        },
     },
     christmas: {
         name: "Christmas",
@@ -41,9 +38,6 @@ export const themes = {
                 default: "#CF3F45",
             },
         },
-        typography: {
-            fontFamily: ["Roboto"],
-        },
         audio: hoho,
     },
     reshjem: {
@@ -59,9 +53,6 @@ export const themes = {
             background: {
                 default: "#7D53DE",
             },
-        },
-        typography: {
-            fontFamily: ["Roboto"],
         },
     },
     halloween: {
@@ -80,9 +71,6 @@ export const themes = {
             background: {
                 default: "#121212",
             },
-        },
-        typography: {
-            fontFamily: ["Roboto"],
         },
         components: {
             MuiAppBar: {
