@@ -1,6 +1,34 @@
-@media (prefers-reduced-motion: no-preference) {
-    .liveIndicator {
-        animation: live-indicator-spin infinite 5s linear;
+.liveIndicator {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.liveIndicator-image,
+.liveIndicator-progress {
+    width: 2em;
+    height: 2em;
+    animation: live-indicator-spin infinite linear;
+}
+
+.liveIndicator-image {
+    animation-duration: 5s;
+}
+
+.liveIndicator-progress {
+    animation-duration: 1.4s;
+}
+
+.liveIndicator-progress circle {
+    stroke: var(--primary);
+    stroke-dasharray: 80px, 200px;
+    stroke-linecap: round;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .liveIndicator-image,
+    .liveIndicator-progress {
+        animation: none;
     }
 }
 

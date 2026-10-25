@@ -1,13 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TopBar from "./components/TopBar";
 import SpinnerPage from "./pages/SpinnerPage";
 import Settings from "./pages/Settings";
 import { Routes, Route, BrowserRouter } from "react-router";
 import { loadFromSessionStorage, saveToSessionStorage } from "./utils/utils";
 import { themes } from "./utils/themes";
-import CssBaseline from "@mui/material/CssBaseline";
-import { Box } from "@mui/material";
+import { getThemeStyle } from "./utils/themeStyle";
 
 const DEFAULT_SETTINGS = {
     amtSpinners: 1,
@@ -24,7 +22,7 @@ function App() {
         // A stored theme may have been renamed or removed since it was saved
         return themes[storedSettings.theme] ? storedSettings : { ...storedSettings, theme: DEFAULT_SETTINGS.theme };
     });
-    const theme = useMemo(() => createTheme(themes[settings.theme]), [settings.theme]);
+    const themeStyle = useMemo(() => getThemeStyle(themes[settings.theme]), [settings.theme]);
 
     useEffect(() => {
         saveToSessionStorage("names", names);
@@ -35,36 +33,23 @@ function App() {
     }, [settings]);
 
     return (
-        <Box id="app" sx={{ display: "flex", flexDirection: "column", flex: 1, height: "100vh" }}>
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <TopBar
-                    prevNames={prevNames}
-                    setPrevNames={setPrevNames}
-                    settings={settings}
-                    setSettings={setSettings}
-                />
-                <BrowserRouter>
-                    <Routes>
-                        <Route
-                            path="/"
-                            element={<SpinnerPage names={names} settings={settings} setPrevNames={setPrevNames} />}
-                        />
-                        <Route
-                            path="/settings"
-                            element={
-                                <Settings
-                                    settings={settings}
-                                    setSettings={setSettings}
-                                    names={names}
-                                    setNames={setNames}
-                                />
-                            }
-                        />
-                    </Routes>
-                </BrowserRouter>
-            </ThemeProvider>
-        </Box>
+        <div className="app" style={themeStyle}>
+            <TopBar prevNames={prevNames} setPrevNames={setPrevNames} settings={settings} setSettings={setSettings} />
+            <BrowserRouter>
+                <Routes>
+                    <Route
+                        path="/"
+                        element={<SpinnerPage names={names} settings={settings} setPrevNames={setPrevNames} />}
+                    />
+                    <Route
+                        path="/settings"
+                        element={
+                            <Settings settings={settings} setSettings={setSettings} names={names} setNames={setNames} />
+                        }
+                    />
+                </Routes>
+            </BrowserRouter>
+        </div>
     );
 }
 

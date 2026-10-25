@@ -1,0 +1,58 @@
+/* Box width and gap must match NAME_BOX_WIDTH and NAME_BOX_GAP in Spinner.jsx */
+
+.spinner {
+    margin-bottom: 32px;
+}
+
+.window {
+    position: relative;
+}
+
+.viewport {
+    overflow-x: hidden;
+    padding: 8px 0;
+}
+
+.row {
+    display: flex;
+    gap: 8px;
+    width: max-content;
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0, 1, 0, 1);
+}
+
+.name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 200px;
+    height: 100px;
+    padding: 0 8px;
+    border-radius: 4px;
+    background-color: var(--secondary);
+    color: var(--on-secondary);
+    text-align: center;
+    word-break: break-word;
+    box-shadow:
+        0 2px 1px -1px rgba(0, 0, 0, 0.2),
+        0 1px 1px 0 rgba(0, 0, 0, 0.14),
+        0 1px 3px 0 rgba(0, 0, 0, 0.12);
+}
+
+.needle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4px;
+    height: 120px;
+    transform: translate(-50%, -50%);
+    border: 1px solid var(--background);
+    background-color: var(--primary);
+}
+
+.result {
+    height: 16px;
+    margin: 0;
+    text-align: center;
+}

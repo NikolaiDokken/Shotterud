@@ -1,0 +1,32 @@
+.page {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+}
+
+/* The theme decoration hangs over the top of the page without pushing the spinners down */
+.decor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-height: 230px;
+    pointer-events: none;
+}
+
+.content {
+    position: relative;
+}
+
+.title {
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.liveIndicator {
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+}

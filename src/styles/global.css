@@ -1,0 +1,209 @@
+/* Base styles and the few shared controls. Colors come from the theme's CSS variables (see utils/themeStyle.js). */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    letter-spacing: 0.00938em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+input,
+select {
+    font: inherit;
+    color: inherit;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: var(--background);
+    color: var(--text);
+}
+
+/* Headings, sized like Material's type scale */
+
+.h3,
+.h4,
+.h6 {
+    margin: 0;
+}
+
+.h3 {
+    font-size: 3rem;
+    font-weight: 400;
+    line-height: 1.167;
+}
+
+.h4 {
+    font-size: 2.125rem;
+    font-weight: 400;
+    line-height: 1.235;
+    letter-spacing: 0.00735em;
+}
+
+.h6 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.6;
+    letter-spacing: 0.0075em;
+}
+
+/* Buttons */
+
+.button,
+.fab,
+.icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+    background: none;
+    cursor: pointer;
+    transition:
+        background-color 250ms,
+        border-color 250ms,
+        box-shadow 250ms;
+}
+
+.button:focus-visible,
+.fab:focus-visible,
+.icon-button:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
+
+.button,
+.fab {
+    gap: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.02857em;
+    text-transform: uppercase;
+}
+
+.button {
+    min-height: 36px;
+    padding: 5px 15px;
+    border-radius: 4px;
+}
+
+.button svg {
+    width: 20px;
+    height: 20px;
+}
+
+.button-contained {
+    background-color: var(--primary);
+    color: var(--on-primary);
+    box-shadow:
+        0 3px 1px -2px rgba(0, 0, 0, 0.2),
+        0 2px 2px 0 rgba(0, 0, 0, 0.14),
+        0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+.button-contained:hover {
+    background-color: color-mix(in srgb, var(--primary), black 15%);
+}
+
+.button-outlined {
+    border-color: color-mix(in srgb, var(--primary) 50%, transparent);
+    color: var(--primary);
+}
+
+.button-outlined:hover {
+    border-color: var(--primary);
+    background-color: color-mix(in srgb, var(--primary) 8%, transparent);
+}
+
+.button-text:hover {
+    background-color: color-mix(in srgb, currentColor 8%, transparent);
+}
+
+.fab {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    height: 48px;
+    padding: 0 16px;
+    border-radius: 24px;
+    background-color: var(--primary);
+    color: var(--on-primary);
+    box-shadow:
+        0 3px 5px -1px rgba(0, 0, 0, 0.2),
+        0 6px 10px 0 rgba(0, 0, 0, 0.14),
+        0 1px 18px 0 rgba(0, 0, 0, 0.12);
+}
+
+.fab:hover {
+    background-color: color-mix(in srgb, var(--primary), black 15%);
+}
+
+.icon-button {
+    padding: 8px;
+    border-radius: 50%;
+    color: color-mix(in srgb, currentColor 70%, transparent);
+}
+
+.icon-button:hover {
+    background-color: color-mix(in srgb, currentColor 8%, transparent);
+}
+
+/* Native select with a custom arrow; the wrapper draws the arrow so it can follow currentColor */
+
+.select {
+    position: relative;
+    display: inline-flex;
+}
+
+.select::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    margin-top: -2px;
+    border: 5px solid transparent;
+    border-top-color: currentColor;
+    pointer-events: none;
+}
+
+.select select {
+    appearance: none;
+    padding: 8.5px 32px 8.5px 14px;
+    border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+    border-radius: 4px;
+    background: transparent;
+    cursor: pointer;
+}
+
+.select select:hover,
+.select select:focus-visible {
+    border-color: currentColor;
+    outline: none;
+}
+
+.select-standard select {
+    padding: 4px 24px 5px 0;
+    border-width: 0 0 1px;
+    border-radius: 0;
+}
+
+.select-standard::after {
+    right: 2px;
+}
+
+/* Keep the opened dropdown readable whatever the theme colors are */
+.select option {
+    color: #000;
+    background-color: #fff;
+}

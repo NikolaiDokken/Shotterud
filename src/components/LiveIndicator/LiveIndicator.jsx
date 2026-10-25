@@ -1,21 +1,18 @@
-import { Box, CircularProgress, Typography } from "@mui/material";
 import { themes } from "../../utils/themes";
 import "./LiveIndicator.css";
 
 export default function LiveIndicator({ settings }) {
+    const indicatorImage = themes[settings.theme].indicatorImage;
     return (
-        <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-            {themes[settings.theme].indicatorImage ? (
-                <img
-                    className="liveIndicator"
-                    src={themes[settings.theme].indicatorImage}
-                    alt=""
-                    style={{ height: "2em", width: "2em" }}
-                />
+        <div className="liveIndicator">
+            {indicatorImage ? (
+                <img className="liveIndicator-image" src={indicatorImage} alt="" />
             ) : (
-                <CircularProgress size="2em" disableShrink />
+                <svg className="liveIndicator-progress" viewBox="22 22 44 44" aria-hidden="true">
+                    <circle cx="44" cy="44" r="20.2" fill="none" strokeWidth="3.6" />
+                </svg>
             )}
-            <Typography sx={{ ml: 2 }}>Game is live</Typography>
-        </Box>
+            <span>Game is live</span>
+        </div>
     );
 }

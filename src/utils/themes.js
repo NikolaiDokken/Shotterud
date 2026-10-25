@@ -6,53 +6,39 @@ import hoho from "../static/Hoho.mp3";
 import sanDiegoDecor from "../static/SanDiegoDecor.png";
 import sanDiegoIndicator from "../static/SanDiegoIndicator.svg";
 
+/**
+ * colors.mode decides the text color (white on dark, black on light); it defaults to light.
+ * colors.appBar is optional and otherwise follows the mode (dark grey, or the primary color).
+ */
 export const themes = {
     default: {
         name: "Default",
         title: "SHOTTERUD",
-        palette: {
+        colors: {
             mode: "dark",
-            primary: {
-                main: "#65d46e",
-            },
-            secondary: {
-                main: "#1db954",
-            },
-            background: {
-                default: "#191414",
-            },
+            primary: "#65d46e",
+            secondary: "#1db954",
+            background: "#191414",
         },
     },
     christmas: {
         name: "Christmas",
         title: "SHO-HO-HOTTERUD",
         decorImage: christmasDecor,
-        palette: {
-            primary: {
-                main: "#1E792C",
-            },
-            secondary: {
-                main: "#791E6B",
-            },
-            background: {
-                default: "#CF3F45",
-            },
-        },
         audio: hoho,
+        colors: {
+            primary: "#1E792C",
+            secondary: "#791E6B",
+            background: "#CF3F45",
+        },
     },
     reshjem: {
         name: "Reshjemfestivalen",
         title: "SHOTTERUD",
-        palette: {
-            primary: {
-                main: "#78E3FD",
-            },
-            secondary: {
-                main: "#D1F5FF",
-            },
-            background: {
-                default: "#7D53DE",
-            },
+        colors: {
+            primary: "#78E3FD",
+            secondary: "#D1F5FF",
+            background: "#7D53DE",
         },
     },
     halloween: {
@@ -60,26 +46,12 @@ export const themes = {
         title: "SHOOooooOOOOoooTTERUD",
         decorImage: halloweenDecor,
         indicatorImage: halloweenIndicator,
-        palette: {
+        colors: {
             mode: "dark",
-            primary: {
-                main: "#eb6123",
-            },
-            secondary: {
-                main: "#902EBB",
-            },
-            background: {
-                default: "#121212",
-            },
-        },
-        components: {
-            MuiAppBar: {
-                defaultProps: {
-                    sx: {
-                        backgroundColor: "#eb6123",
-                    },
-                },
-            },
+            primary: "#eb6123",
+            secondary: "#902EBB",
+            background: "#121212",
+            appBar: "#eb6123",
         },
     },
     san_diego: {
@@ -88,16 +60,10 @@ export const themes = {
         decorImage: sanDiegoDecor,
         indicatorImage: sanDiegoIndicator,
         audio: bingBong,
-        palette: {
-            primary: {
-                main: "#BBDBF7",
-            },
-            secondary: {
-                main: "#92C4EE",
-            },
-            background: {
-                default: "#F6E3D4",
-            },
+        colors: {
+            primary: "#BBDBF7",
+            secondary: "#92C4EE",
+            background: "#F6E3D4",
         },
     },
 };

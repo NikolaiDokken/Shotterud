@@ -1,0 +1,66 @@
+.slider {
+    position: relative;
+    height: 28px;
+    margin: 4px 0;
+}
+
+/* Rail plus the highlighted range between the thumbs */
+.track {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 4px;
+    margin-top: -2px;
+    border-radius: 2px;
+    background: linear-gradient(
+        to right,
+        color-mix(in srgb, var(--primary) 38%, transparent) var(--low),
+        var(--primary) var(--low) var(--high),
+        color-mix(in srgb, var(--primary) 38%, transparent) var(--high)
+    );
+}
+
+/* Both inputs cover the whole slider; only their thumbs take pointer events */
+.slider input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    margin: 0;
+    background: none;
+    appearance: none;
+    pointer-events: none;
+}
+
+.slider input::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+    border: 0;
+    border-radius: 50%;
+    background-color: var(--primary);
+    appearance: none;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.slider input::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border: 0;
+    border-radius: 50%;
+    background-color: var(--primary);
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.slider input:focus-visible {
+    outline: none;
+}
+
+.slider input:focus-visible::-webkit-slider-thumb {
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--primary) 30%, transparent);
+}
+
+.slider input:focus-visible::-moz-range-thumb {
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--primary) 30%, transparent);
+}

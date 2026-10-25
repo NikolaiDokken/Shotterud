@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { Box, Typography, Paper } from "@mui/material";
+import styles from "./Spinner.module.css";
 
 const SPIN_DELAY_MS = 1000;
 const SPIN_TIME = 15;
+// Keep these in sync with Spinner.module.css
 const NAME_BOX_WIDTH = 200;
-const NAME_BOX_HEIGHT = 100;
 const NAME_BOX_GAP = 8;
 const NAME_BOX_STRIDE = NAME_BOX_WIDTH + NAME_BOX_GAP;
 // The row is about this many boxes long whatever the player count, so it always spins at the same speed
@@ -76,55 +76,26 @@ export default function Spinner({ names, setPrevNames }) {
     }, [spin, winner, setPrevNames]);
 
     return (
-        <Box sx={{ mb: 4 }}>
-            <Box sx={{ position: "relative" }}>
-                <Box ref={containerRef} sx={{ overflowX: "hidden", py: 1 }}>
-                    <Box
-                        sx={{
-                            display: "flex",
-                            gap: `${NAME_BOX_GAP}px`,
-                            width: "max-content",
+        <div className={styles.spinner}>
+            <div className={styles.window}>
+                <div ref={containerRef} className={styles.viewport}>
+                    <div
+                        className={styles.row}
+                        style={{
                             transform: position === null ? "translateX(100vw)" : `translateX(${position}px)`,
-                            transition: `transform ${SPIN_TIME}s cubic-bezier(0,1,0,1)`,
+                            transitionDuration: `${SPIN_TIME}s`,
                         }}
                     >
                         {spin.nameList.map((name, index) => (
-                            <Paper
-                                key={index}
-                                sx={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    flexShrink: 0,
-                                    height: NAME_BOX_HEIGHT,
-                                    width: NAME_BOX_WIDTH,
-                                    wordBreak: "break-word",
-                                    textAlign: "center",
-                                    bgcolor: "secondary.main",
-                                }}
-                            >
-                                <Typography sx={{ color: "secondary.contrastText" }}>{name}</Typography>
-                            </Paper>
+                            <div key={index} className={styles.name}>
+                                {name}
+                            </div>
                         ))}
-                    </Box>
-                </Box>
-                <Box
-                    sx={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -50%)",
-                        width: 4,
-                        height: NAME_BOX_HEIGHT + 20,
-                        bgcolor: "primary.main",
-                        border: 1,
-                        borderColor: "background.default",
-                    }}
-                />
-            </Box>
-            <Typography variant="h6" sx={{ textAlign: "center", height: 2 }}>
-                {isDone && `Bottoms up ${winner}!`}
-            </Typography>
-        </Box>
+                    </div>
+                </div>
+                <div className={styles.needle} />
+            </div>
+            <p className={`h6 ${styles.result}`}>{isDone && `Bottoms up ${winner}!`}</p>
+        </div>
     );
 }

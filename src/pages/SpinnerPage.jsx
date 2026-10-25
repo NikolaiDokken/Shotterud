@@ -1,10 +1,10 @@
-import { Box, Fab, Typography } from "@mui/material";
-import SettingsIcon from "@mui/icons-material/Settings";
+import { SettingsIcon } from "../components/icons";
 import { useNavigate } from "react-router";
 import Spinner from "../components/Spinner";
 import { useEffect, useState } from "react";
 import { themes } from "../utils/themes";
 import LiveIndicator from "../components/LiveIndicator/LiveIndicator";
+import styles from "./SpinnerPage.module.css";
 
 // How long the spinners stay on screen after a round starts
 const ROUND_DURATION_MS = 25000;
@@ -62,59 +62,31 @@ export default function SpinnerPage({ names, settings, setPrevNames }) {
     }, [hasEnoughPlayers, amtSpinners, minMaxMinutes, theme]);
 
     return (
-        <Box
-            sx={{
-                display: "flex",
-                flexDirection: "column",
-                flex: 1,
-            }}
-        >
-            <img src={themes[theme].decorImage} alt="" style={{ width: "100%", maxHeight: "230px" }}></img>
-            <Box
-                id="bigBox"
-                sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    flex: 1,
-                    justifyContent: "center",
-                }}
-            >
+        <div className={styles.page}>
+            {themes[theme].decorImage && <img className={styles.decor} src={themes[theme].decorImage} alt="" />}
+            <div className={styles.content}>
                 {hasEnoughPlayers ? (
-                    <div style={themes[theme].decorImage ? { marginTop: "-230px" } : {}} id="spinners">
-                        {round && (
-                            <Box key={round.id}>
-                                <Typography variant="h4" sx={{ textAlign: "center", mb: 2 }}>
-                                    {themes[theme].title}
-                                </Typography>
-                                {Array.from({ length: round.amtSpinners }, (_, index) => (
-                                    <Spinner key={index} names={names} setPrevNames={setPrevNames} />
-                                ))}
-                            </Box>
-                        )}
-                    </div>
+                    round && (
+                        <div key={round.id}>
+                            <h2 className={`h4 ${styles.title}`}>{themes[theme].title}</h2>
+                            {Array.from({ length: round.amtSpinners }, (_, index) => (
+                                <Spinner key={index} names={names} setPrevNames={setPrevNames} />
+                            ))}
+                        </div>
+                    )
                 ) : (
-                    <Typography
-                        variant="h3"
-                        sx={{ textAlign: "center", ...(themes[theme].decorImage ? { marginTop: "-230px" } : {}) }}
-                    >
-                        Add more players to begin
-                    </Typography>
+                    <h2 className={`h3 ${styles.title}`}>Add more players to begin</h2>
                 )}
-                {hasEnoughPlayers && (
-                    <Box sx={{ position: "absolute", bottom: 16, left: 16 }}>
-                        <LiveIndicator settings={settings} />
-                    </Box>
-                )}
-                <Fab
-                    color="primary"
-                    variant="extended"
-                    sx={{ position: "absolute", bottom: 16, right: 16 }}
-                    onClick={() => navigate("/settings")}
-                >
-                    <SettingsIcon sx={{ mr: 1 }} />
-                    Settings
-                </Fab>
-            </Box>
-        </Box>
+            </div>
+            {hasEnoughPlayers && (
+                <div className={styles.liveIndicator}>
+                    <LiveIndicator settings={settings} />
+                </div>
+            )}
+            <button type="button" className="fab" onClick={() => navigate("/settings")}>
+                <SettingsIcon />
+                Settings
+            </button>
+        </div>
     );
 }
