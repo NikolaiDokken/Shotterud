@@ -37,7 +37,7 @@ function createSpin(names) {
     };
 }
 
-export default function Spinner({ names, spinSeconds, setPrevNames }) {
+export default function Spinner({ names, spinSeconds, roundId, setPrevNames }) {
     const [spin] = useState(() => createSpin(names));
     // Row offset in px; null until the spin starts, while the row waits off-screen to the right
     const [position, setPosition] = useState(null);
@@ -53,14 +53,14 @@ export default function Spinner({ names, spinSeconds, setPrevNames }) {
 
             revealTimer = setTimeout(() => {
                 setIsDone(true);
-                setPrevNames((prevNames) => [winner, ...prevNames]);
+                setPrevNames((prevNames) => [{ name: winner, roundId }, ...prevNames]);
             }, spinSeconds * 1000);
         }, SPIN_DELAY_MS);
         return () => {
             clearTimeout(spinTimer);
             clearTimeout(revealTimer);
         };
-    }, [spin, winner, spinSeconds, setPrevNames]);
+    }, [spin, winner, spinSeconds, roundId, setPrevNames]);
 
     return (
         <div className={styles.spinner}>

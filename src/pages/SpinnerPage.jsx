@@ -77,7 +77,13 @@ export default function SpinnerPage({ names, settings, setPrevNames }) {
                 {round ? (
                     <div key={round.id} className={styles.reels} data-count={round.spinDurations.length}>
                         {round.spinDurations.map((spinSeconds, index) => (
-                            <Spinner key={index} names={names} spinSeconds={spinSeconds} setPrevNames={setPrevNames} />
+                            <Spinner
+                                key={index}
+                                names={names}
+                                spinSeconds={spinSeconds}
+                                roundId={round.id}
+                                setPrevNames={setPrevNames}
+                            />
                         ))}
                     </div>
                 ) : hasEnoughPlayers ? (

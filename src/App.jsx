@@ -16,6 +16,7 @@ const DEFAULT_SETTINGS = {
 function App() {
     // Names and settings are restored from sessionStorage so they survive a reload
     const [names, setNames] = useState(() => loadFromSessionStorage("names", []));
+    // Picks so far, newest first, as { name, roundId }
     const [prevNames, setPrevNames] = useState([]);
     const [settings, setSettings] = useState(() => {
         const storedSettings = { ...DEFAULT_SETTINGS, ...loadFromSessionStorage("settings", {}) };

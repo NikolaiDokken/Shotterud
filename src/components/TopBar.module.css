@@ -31,8 +31,8 @@
     color: var(--muted);
 }
 
-/* The latest pick stands out; older ones fade into the history */
-.prevNames li:first-child {
+/* Everyone picked in the latest round stands out; older picks fade into the history */
+.prevNames .latest {
     background-color: var(--accent);
     color: var(--accent-ink);
     font-weight: 700;
