@@ -34,7 +34,7 @@ function App() {
 
     return (
         <div className="app" style={themeStyle}>
-            <TopBar prevNames={prevNames} setPrevNames={setPrevNames} settings={settings} setSettings={setSettings} />
+            <TopBar prevNames={prevNames} setPrevNames={setPrevNames} />
             <BrowserRouter>
                 <Routes>
                     <Route

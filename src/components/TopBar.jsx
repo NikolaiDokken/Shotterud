@@ -1,37 +1,25 @@
-import { ArrowForwardIosIcon, ClearIcon, LocalBarIcon } from "./icons";
-import { themes } from "../utils/themes";
+import { LocalBarIcon } from "./icons";
 import styles from "./TopBar.module.css";
 
-export default function TopBar({ prevNames, setPrevNames, settings, setSettings }) {
+/** Who has been picked so far this session, newest first */
+export default function TopBar({ prevNames, setPrevNames }) {
     return (
         <header className={styles.topBar}>
-            <LocalBarIcon />
-            <ArrowForwardIosIcon />
-            <ol className={styles.prevNames} aria-label="Previous names">
-                {prevNames.map((name, index) => (
-                    <li key={index}>{name}</li>
-                ))}
-            </ol>
+            <LocalBarIcon size={22} />
+            {prevNames.length > 0 ? (
+                <ol className={styles.prevNames} aria-label="Picked so far, newest first">
+                    {prevNames.map((name, index) => (
+                        <li key={index}>{name}</li>
+                    ))}
+                </ol>
+            ) : (
+                <p className={styles.empty}>Nobody has been picked yet</p>
+            )}
             {prevNames.length > 0 && (
-                <button type="button" className="button button-text" onClick={() => setPrevNames([])}>
-                    <ClearIcon />
+                <button type="button" className="button button-quiet" onClick={() => setPrevNames([])}>
                     Clear
                 </button>
             )}
-            <span className="select">
-                <select
-                    name="theme"
-                    aria-label="Theme"
-                    value={settings.theme}
-                    onChange={(e) => setSettings({ ...settings, theme: e.target.value })}
-                >
-                    {Object.keys(themes).map((themeKey) => (
-                        <option key={themeKey} value={themeKey}>
-                            {themes[themeKey].name}
-                        </option>
-                    ))}
-                </select>
-            </span>
         </header>
     );
 }

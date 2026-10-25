@@ -1,21 +1,23 @@
 /* Box width and gap must match NAME_BOX_WIDTH and NAME_BOX_GAP in Spinner.jsx */
 
 .spinner {
-    margin-bottom: 32px;
+    width: 100%;
 }
 
 .window {
     position: relative;
 }
 
+/* Fade the reel out towards the edges so the eye goes to the needle */
 .viewport {
     overflow-x: hidden;
-    padding: 8px 0;
+    padding: 14px 0;
+    mask-image: linear-gradient(to right, transparent, black 18%, black 82%, transparent);
 }
 
 .row {
     display: flex;
-    gap: 8px;
+    gap: 10px;
     width: max-content;
     transition-property: transform;
     transition-timing-function: cubic-bezier(0, 1, 0, 1);
@@ -26,33 +28,75 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    width: 200px;
-    height: 100px;
-    padding: 0 8px;
-    border-radius: 4px;
-    background-color: var(--secondary);
-    color: var(--on-secondary);
+    width: 220px;
+    height: var(--tile-height, 120px);
+    padding: 0 12px;
+    border-radius: 6px;
+    background-color: var(--tile);
+    color: var(--tile-ink);
+    font-family: var(--font-display);
+    font-size: 2.25rem;
+    font-weight: 800;
+    line-height: 1;
     text-align: center;
-    word-break: break-word;
-    box-shadow:
-        0 2px 1px -1px rgba(0, 0, 0, 0.2),
-        0 1px 1px 0 rgba(0, 0, 0, 0.14),
-        0 1px 3px 0 rgba(0, 0, 0, 0.12);
+    overflow-wrap: anywhere;
 }
 
+/* A bar with a background-colored outline, plus pointers above and below the reel */
 .needle {
     position: absolute;
-    top: 50%;
+    top: 0;
+    bottom: 0;
     left: 50%;
-    width: 4px;
-    height: 120px;
-    transform: translate(-50%, -50%);
-    border: 1px solid var(--background);
-    background-color: var(--primary);
+    width: 6px;
+    transform: translateX(-50%);
+    background-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--bg);
+}
+
+.needle::before,
+.needle::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    border: 10px solid transparent;
+    transform: translateX(-50%);
+}
+
+.needle::before {
+    top: -6px;
+    border-top: 14px solid var(--accent);
+}
+
+.needle::after {
+    bottom: -6px;
+    border-bottom: 14px solid var(--accent);
 }
 
 .result {
-    height: 16px;
-    margin: 0;
-    text-align: center;
+    min-height: 1.1em;
+    margin: 8px 0 0;
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-size: var(--result-size, clamp(2.5rem, 7vw, 5rem));
+    font-weight: 900;
+    line-height: 1.1;
+}
+
+.resultText {
+    display: inline-block;
+    animation: result-pop 450ms cubic-bezier(0.2, 1.6, 0.4, 1) both;
+}
+
+@keyframes result-pop {
+    from {
+        opacity: 0;
+        transform: scale(0.6);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .resultText {
+        animation: none;
+    }
 }

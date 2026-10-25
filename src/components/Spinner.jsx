@@ -4,8 +4,8 @@ import styles from "./Spinner.module.css";
 const SPIN_DELAY_MS = 1000;
 const SPIN_TIME = 15;
 // Keep these in sync with Spinner.module.css
-const NAME_BOX_WIDTH = 200;
-const NAME_BOX_GAP = 8;
+const NAME_BOX_WIDTH = 220;
+const NAME_BOX_GAP = 10;
 const NAME_BOX_STRIDE = NAME_BOX_WIDTH + NAME_BOX_GAP;
 // The row is about this many boxes long whatever the player count, so it always spins at the same speed
 const ROW_LENGTH = 1000;
@@ -95,7 +95,9 @@ export default function Spinner({ names, setPrevNames }) {
                 </div>
                 <div className={styles.needle} />
             </div>
-            <p className={`h6 ${styles.result}`}>{isDone && `Bottoms up ${winner}!`}</p>
+            <p className={styles.result} aria-live="polite">
+                {isDone && <span className={styles.resultText}>Bottoms up, {winner}!</span>}
+            </p>
         </div>
     );
 }

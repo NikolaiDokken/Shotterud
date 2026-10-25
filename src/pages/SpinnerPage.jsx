@@ -1,4 +1,4 @@
-import { SettingsIcon } from "../components/icons";
+import { PersonAddIcon, SettingsIcon } from "../components/icons";
 import { useNavigate } from "react-router";
 import Spinner from "../components/Spinner";
 import { useEffect, useState } from "react";
@@ -8,6 +8,8 @@ import styles from "./SpinnerPage.module.css";
 
 // How long the spinners stay on screen after a round starts
 const ROUND_DURATION_MS = 25000;
+
+const playerList = new Intl.ListFormat("en", { type: "conjunction" });
 
 const getCurrentTime = () => {
     const now = new Date();
@@ -62,31 +64,40 @@ export default function SpinnerPage({ names, settings, setPrevNames }) {
     }, [hasEnoughPlayers, amtSpinners, minMaxMinutes, theme]);
 
     return (
-        <div className={styles.page}>
+        <main className={styles.page}>
             {themes[theme].decorImage && <img className={styles.decor} src={themes[theme].decorImage} alt="" />}
-            <div className={styles.content}>
-                {hasEnoughPlayers ? (
-                    round && (
-                        <div key={round.id}>
-                            <h2 className={`h4 ${styles.title}`}>{themes[theme].title}</h2>
-                            {Array.from({ length: round.amtSpinners }, (_, index) => (
-                                <Spinner key={index} names={names} setPrevNames={setPrevNames} />
-                            ))}
-                        </div>
-                    )
+            <div className={styles.stage}>
+                <h1
+                    className={round ? `${styles.title} ${styles.titleSmall}` : styles.title}
+                    style={{ "--chars": themes[theme].title.length }}
+                >
+                    {themes[theme].title}
+                </h1>
+                {round ? (
+                    <div key={round.id} className={styles.reels} data-count={round.amtSpinners}>
+                        {Array.from({ length: round.amtSpinners }, (_, index) => (
+                            <Spinner key={index} names={names} setPrevNames={setPrevNames} />
+                        ))}
+                    </div>
+                ) : hasEnoughPlayers ? (
+                    <p className={styles.players}>{playerList.format(names)} are playing</p>
                 ) : (
-                    <h2 className={`h3 ${styles.title}`}>Add more players to begin</h2>
+                    <div className={styles.empty}>
+                        <p className={styles.players}>Add at least two players to start the game.</p>
+                        <button type="button" className="button button-primary" onClick={() => navigate("/settings")}>
+                            <PersonAddIcon />
+                            Add players
+                        </button>
+                    </div>
                 )}
             </div>
-            {hasEnoughPlayers && (
-                <div className={styles.liveIndicator}>
-                    <LiveIndicator settings={settings} />
-                </div>
-            )}
-            <button type="button" className="fab" onClick={() => navigate("/settings")}>
-                <SettingsIcon />
-                Settings
-            </button>
-        </div>
+            <footer className={styles.footer}>
+                {hasEnoughPlayers ? <LiveIndicator settings={settings} /> : <span />}
+                <button type="button" className="button button-quiet" onClick={() => navigate("/settings")}>
+                    <SettingsIcon />
+                    Settings
+                </button>
+            </footer>
+        </main>
     );
 }

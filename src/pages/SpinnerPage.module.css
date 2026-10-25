@@ -2,11 +2,10 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     flex: 1;
 }
 
-/* The theme decoration hangs over the top of the page without pushing the spinners down */
+/* The theme decoration hangs over the top of the page without pushing the content down */
 .decor {
     position: absolute;
     top: 0;
@@ -16,17 +15,70 @@
     pointer-events: none;
 }
 
-.content {
+.stage {
     position: relative;
-}
-
-.title {
-    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    gap: 24px;
+    padding: 32px 0;
     text-align: center;
 }
 
-.liveIndicator {
-    position: fixed;
-    bottom: 16px;
-    left: 16px;
+/* The title is the screen people see most, from across the room */
+.title {
+    margin: 0;
+    padding: 0 16px;
+    font-family: var(--font-display);
+    /* Scaled by title length (--chars) so long theme titles still fit on one line */
+    font-size: clamp(3rem, min(14vw, calc(180vw / var(--chars))), 11rem);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.01em;
+    overflow-wrap: anywhere;
+}
+
+.titleSmall {
+    font-size: clamp(2rem, min(6vw, calc(90vw / var(--chars))), 4.5rem);
+}
+
+.players {
+    max-width: 40ch;
+    margin: 0;
+    padding: 0 16px;
+    color: var(--muted);
+    font-size: clamp(1.125rem, 2vw, 1.5rem);
+}
+
+.empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.reels {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+
+/* Two or three spinners have to share the screen */
+.reels[data-count="2"],
+.reels[data-count="3"] {
+    --tile-height: 88px;
+    --result-size: clamp(1.75rem, 4vw, 2.75rem);
+    gap: 8px;
+}
+
+.footer {
+    position: sticky;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
 }

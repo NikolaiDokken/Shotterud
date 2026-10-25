@@ -7,18 +7,19 @@ import sanDiegoDecor from "../static/SanDiegoDecor.png";
 import sanDiegoIndicator from "../static/SanDiegoIndicator.svg";
 
 /**
- * colors.mode decides the text color (white on dark, black on light); it defaults to light.
- * colors.appBar is optional and otherwise follows the mode (dark grey, or the primary color).
+ * colors.background / colors.ink: the page and its text
+ * colors.tile: the name boxes on the spinner (their text color is picked for contrast)
+ * colors.accent: needle, buttons and the result line; must stand out against both background and tiles
  */
 export const themes = {
     default: {
-        name: "Default",
+        name: "Shotterud",
         title: "SHOTTERUD",
         colors: {
-            mode: "dark",
-            primary: "#65d46e",
-            secondary: "#1db954",
-            background: "#191414",
+            background: "#1C1330",
+            ink: "#F6EFE6",
+            tile: "#F2A93B",
+            accent: "#FF5C8A",
         },
     },
     christmas: {
@@ -27,18 +28,20 @@ export const themes = {
         decorImage: christmasDecor,
         audio: hoho,
         colors: {
-            primary: "#1E792C",
-            secondary: "#791E6B",
-            background: "#CF3F45",
+            background: "#123B2C",
+            ink: "#F7EEDC",
+            tile: "#B5202E",
+            accent: "#E9B949",
         },
     },
     reshjem: {
         name: "Reshjemfestivalen",
         title: "SHOTTERUD",
         colors: {
-            primary: "#78E3FD",
-            secondary: "#D1F5FF",
-            background: "#7D53DE",
+            background: "#4B2BB0",
+            ink: "#FFFFFF",
+            tile: "#D1F5FF",
+            accent: "#78E3FD",
         },
     },
     halloween: {
@@ -47,11 +50,10 @@ export const themes = {
         decorImage: halloweenDecor,
         indicatorImage: halloweenIndicator,
         colors: {
-            mode: "dark",
-            primary: "#eb6123",
-            secondary: "#902EBB",
-            background: "#121212",
-            appBar: "#eb6123",
+            background: "#160D1C",
+            ink: "#F3E9DC",
+            tile: "#EB6123",
+            accent: "#A6E35A",
         },
     },
     san_diego: {
@@ -61,9 +63,10 @@ export const themes = {
         indicatorImage: sanDiegoIndicator,
         audio: bingBong,
         colors: {
-            primary: "#BBDBF7",
-            secondary: "#92C4EE",
-            background: "#F6E3D4",
+            background: "#F4E5D0",
+            ink: "#13324A",
+            tile: "#2E8BB5",
+            accent: "#13324A",
         },
     },
 };

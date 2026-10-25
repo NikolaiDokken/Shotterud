@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { CancelIcon, DeleteIcon, LocalBarIcon, PersonAddIcon } from "../components/icons";
+import { CancelIcon, PersonAddIcon } from "../components/icons";
 import RangeSlider from "../components/RangeSlider";
+import { themes } from "../utils/themes";
+import { getThemeStyle } from "../utils/themeStyle";
 import styles from "./Settings.module.css";
 
 const WAIT_PRESETS = [
@@ -9,6 +11,7 @@ const WAIT_PRESETS = [
     [5, 15],
     [10, 20],
 ];
+const SPINNER_COUNTS = [1, 2, 3];
 
 export default function Settings({ settings, setSettings, names, setNames }) {
     const navigate = useNavigate();
@@ -31,89 +34,129 @@ export default function Settings({ settings, setSettings, names, setNames }) {
 
     return (
         <main className={styles.page}>
-            <h1 className={`h3 ${styles.heading}`}>Settings</h1>
+            <header className={styles.header}>
+                <h1 className={styles.heading}>Settings</h1>
+                <button type="button" className="button button-primary" onClick={() => navigate("/")}>
+                    Back to game
+                </button>
+            </header>
 
-            <p className={styles.label}>
-                Minimum and Maximum Waiting Time (Minutes): {minMinutes}–{maxMinutes}
-            </p>
-            <RangeSlider
-                value={settings.minMaxMinutes}
-                onChange={(minMaxMinutes) => setSettings({ ...settings, minMaxMinutes })}
-                labels={["Minimum waiting time", "Maximum waiting time"]}
-            />
-            <div className={styles.presets}>
-                {WAIT_PRESETS.map((preset) => (
-                    <button
-                        key={preset.join("-")}
-                        type="button"
-                        className="button button-outlined"
-                        onClick={() => setSettings({ ...settings, minMaxMinutes: preset })}
-                    >
-                        {preset.join("-")}
-                    </button>
-                ))}
-            </div>
-
-            <label className={styles.row}>
-                <span className={styles.rowLabel}>Maximum number of spinners:</span>
-                <span className={`select select-standard ${styles.onBackground}`}>
-                    <select
-                        value={settings.amtSpinners}
-                        onChange={(e) => setSettings({ ...settings, amtSpinners: Number(e.target.value) })}
-                    >
-                        <option value={1}>One</option>
-                        <option value={2}>Two</option>
-                        <option value={3}>Three</option>
-                    </select>
-                </span>
-            </label>
-
-            <form className={styles.row} onSubmit={handleAddName}>
-                <label htmlFor="player-name" className={styles.rowLabel}>
-                    Add players:
-                </label>
-                <span className={`${styles.textField} ${styles.onBackground}`}>
+            <section className={styles.section} aria-labelledby="players-heading">
+                <h2 id="players-heading" className={styles.sectionHeading}>
+                    Players <span className={styles.count}>{names.length}</span>
+                </h2>
+                <form className={styles.addPlayer} onSubmit={handleAddName}>
                     <input
-                        id="player-name"
+                        className={styles.input}
                         value={name}
                         placeholder="Name"
+                        aria-label="Player name"
                         autoComplete="off"
                         onChange={(e) => setName(e.target.value)}
                     />
-                    <button type="submit" className="icon-button" aria-label="Add player">
+                    <button type="submit" className="button button-primary">
                         <PersonAddIcon />
+                        Add
                     </button>
-                </span>
-            </form>
-
-            <div className={names.length > 0 ? styles.players : `${styles.players} ${styles.playersEmpty}`}>
+                </form>
                 {names.length > 0 ? (
-                    names.map((name) => (
-                        <span key={name} className={styles.chip}>
-                            {name}
-                            <button
-                                type="button"
-                                className={styles.chipDelete}
-                                aria-label={`Remove ${name}`}
-                                onClick={() => handleDeleteName(name)}
-                            >
-                                <CancelIcon size={22} />
-                            </button>
-                        </span>
-                    ))
+                    <>
+                        <ul className={styles.players}>
+                            {names.map((name) => (
+                                <li key={name} className={styles.chip}>
+                                    {name}
+                                    <button
+                                        type="button"
+                                        className={styles.chipRemove}
+                                        aria-label={`Remove ${name}`}
+                                        onClick={() => handleDeleteName(name)}
+                                    >
+                                        <CancelIcon size={20} />
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                        <button type="button" className="button button-quiet" onClick={() => setNames([])}>
+                            Remove all players
+                        </button>
+                    </>
                 ) : (
-                    <p className="h4">No Players :(</p>
+                    <p className={styles.hint}>Add at least two players to start the game.</p>
                 )}
-            </div>
-            <button type="button" className="button button-contained" onClick={() => setNames([])}>
-                <DeleteIcon />
-                Delete All
-            </button>
+            </section>
 
-            <button type="button" className="fab" onClick={() => navigate("/")}>
-                <LocalBarIcon />
-                Save and go back to game
-            </button>
+            <section className={styles.section} aria-labelledby="time-heading">
+                <h2 id="time-heading" className={styles.sectionHeading}>
+                    Time between rounds{" "}
+                    <span className={styles.value}>
+                        {minMinutes}–{maxMinutes} min
+                    </span>
+                </h2>
+                <p className={styles.hint}>Each round starts at a random time inside this range.</p>
+                <RangeSlider
+                    value={settings.minMaxMinutes}
+                    onChange={(minMaxMinutes) => setSettings({ ...settings, minMaxMinutes })}
+                    labels={["Shortest time between rounds", "Longest time between rounds"]}
+                />
+                <div className={styles.options}>
+                    {WAIT_PRESETS.map((preset) => (
+                        <button
+                            key={preset.join("-")}
+                            type="button"
+                            className="button button-ghost"
+                            aria-pressed={preset[0] === minMinutes && preset[1] === maxMinutes}
+                            onClick={() => setSettings({ ...settings, minMaxMinutes: preset })}
+                        >
+                            {preset.join("–")} min
+                        </button>
+                    ))}
+                </div>
+            </section>
+
+            <section className={styles.section} aria-labelledby="spinners-heading">
+                <h2 id="spinners-heading" className={styles.sectionHeading}>
+                    Spinners per round
+                </h2>
+                <p className={styles.hint}>Most rounds use one. Now and then a round picks extra people, up to this many.</p>
+                <div className={styles.options}>
+                    {SPINNER_COUNTS.map((count) => (
+                        <button
+                            key={count}
+                            type="button"
+                            className="button button-ghost"
+                            aria-pressed={settings.amtSpinners === count}
+                            onClick={() => setSettings({ ...settings, amtSpinners: count })}
+                        >
+                            Up to {count}
+                        </button>
+                    ))}
+                </div>
+            </section>
+
+            <section className={styles.section} aria-labelledby="theme-heading">
+                <h2 id="theme-heading" className={styles.sectionHeading}>
+                    Theme
+                </h2>
+                <div className={styles.themes}>
+                    {Object.entries(themes).map(([themeKey, theme]) => (
+                        <button
+                            key={themeKey}
+                            type="button"
+                            className={styles.theme}
+                            aria-pressed={settings.theme === themeKey}
+                            onClick={() => setSettings({ ...settings, theme: themeKey })}
+                        >
+                            <span className={styles.themePreview}>
+                                <span className={styles.themeSwatch} style={getThemeStyle(theme)}>
+                                    <span className={styles.themeTile}>Aa</span>
+                                    <span className={styles.themeAccent} />
+                                </span>
+                            </span>
+                            {theme.name}
+                        </button>
+                    ))}
+                </div>
+            </section>
         </main>
     );
 }

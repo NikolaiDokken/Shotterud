@@ -5,35 +5,41 @@
     display: flex;
     flex-shrink: 0;
     align-items: center;
-    gap: 8px;
-    min-height: 64px;
-    padding: 0 24px;
-    background-color: var(--app-bar);
-    color: var(--on-app-bar);
-    box-shadow:
-        0 2px 4px -1px rgba(0, 0, 0, 0.2),
-        0 4px 5px 0 rgba(0, 0, 0, 0.14),
-        0 1px 10px 0 rgba(0, 0, 0, 0.12);
-}
-
-.topBar > :global(.select) {
-    margin-left: 8px;
+    gap: 14px;
+    min-height: 56px;
+    padding: 0 8px 0 20px;
+    border-bottom: 1px solid var(--line);
+    background-color: var(--surface);
 }
 
 .prevNames {
     display: flex;
     flex: 1;
     align-items: center;
+    gap: 6px;
     margin: 0;
-    padding: 0;
+    padding: 4px 0;
     overflow-x: auto;
     list-style: none;
     white-space: nowrap;
+    scrollbar-width: none;
 }
 
-/* A white bar between each name */
-.prevNames li + li {
-    margin-left: 8px;
-    padding-left: 10px;
-    border-left: 2px solid white;
+.prevNames li {
+    padding: 2px 12px;
+    border-radius: 999px;
+    color: var(--muted);
+}
+
+/* The latest pick stands out; older ones fade into the history */
+.prevNames li:first-child {
+    background-color: var(--accent);
+    color: var(--accent-ink);
+    font-weight: 700;
+}
+
+.empty {
+    flex: 1;
+    margin: 0;
+    color: var(--muted);
 }

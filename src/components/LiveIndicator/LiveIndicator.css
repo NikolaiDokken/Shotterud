@@ -1,42 +1,43 @@
 .liveIndicator {
     display: flex;
     align-items: center;
-    gap: 16px;
-}
-
-.liveIndicator-image,
-.liveIndicator-progress {
-    width: 2em;
-    height: 2em;
-    animation: live-indicator-spin infinite linear;
+    gap: 12px;
+    color: var(--muted);
 }
 
 .liveIndicator-image {
-    animation-duration: 5s;
+    width: 2em;
+    height: 2em;
+    animation: live-indicator-spin 5s linear infinite;
 }
 
-.liveIndicator-progress {
-    animation-duration: 1.4s;
-}
-
-.liveIndicator-progress circle {
-    stroke: var(--primary);
-    stroke-dasharray: 80px, 200px;
-    stroke-linecap: round;
+.liveIndicator-dot {
+    width: 12px;
+    height: 12px;
+    margin: 0 6px;
+    border-radius: 50%;
+    background-color: var(--accent);
+    animation: live-indicator-pulse 2s ease-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
     .liveIndicator-image,
-    .liveIndicator-progress {
+    .liveIndicator-dot {
         animation: none;
     }
 }
 
 @keyframes live-indicator-spin {
-    from {
-        transform: rotate(0deg);
-    }
     to {
         transform: rotate(360deg);
+    }
+}
+
+@keyframes live-indicator-pulse {
+    from {
+        box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent);
+    }
+    to {
+        box-shadow: 0 0 0 12px transparent;
     }
 }
