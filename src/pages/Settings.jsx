@@ -14,7 +14,7 @@ import {
     Stack,
 } from "@mui/material";
 import LocalBarIcon from "@mui/icons-material/LocalBar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useTheme } from "@mui/material/styles";
@@ -96,7 +96,7 @@ export default function Settings({ settings, setSettings, names, setNames }) {
                     onChange={handleSliderChange}
                     valueLabelDisplay="auto"
                 />
-                <Stack direction="row" justifyContent={"center"} spacing={2} sx={{ mb: 2 }}>
+                <Stack direction="row" spacing={2} sx={{ justifyContent: "center", mb: 2 }}>
                     <Button variant="outlined" onClick={() => setSettings({ ...settings, minMaxMinutes: [5, 10] })}>
                         5-10
                     </Button>

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Box, Typography, Paper, useTheme } from "@mui/material";
 
 /**
@@ -69,7 +69,8 @@ export default function Spinner({ names, spinnerNr, setPrevNames }) {
         }
         return [];
     }
-    const nameList = generateNameList();
+    // Shuffle once per spinner, so re-renders don't swap the names under the needle
+    const [nameList] = useState(generateNameList);
 
     const getSelectedName = useCallback(() => {
         const needle = document.getElementById("needle" + spinnerNr);
@@ -95,16 +96,20 @@ export default function Spinner({ names, spinnerNr, setPrevNames }) {
     }, [spinnerNr, setPrevNames]);
 
     useEffect(() => {
-        const timer = setTimeout(() => {
+        let selectTimer;
+        const spinTimer = setTimeout(() => {
             const nameRowElement = document.getElementById("nameRow" + spinnerNr);
             nameRowElement.style.margin =
                 "0 0 0 -" + (ROW_LENGTH - SCREEN_WIDTH - getRandomInt(0, NAME_BOX_WIDTH * names.length)) + "px";
 
-            setTimeout(() => {
+            selectTimer = setTimeout(() => {
                 getSelectedName();
             }, SPIN_TIME * 1000);
         }, 1000);
-        return () => clearTimeout(timer);
+        return () => {
+            clearTimeout(spinTimer);
+            clearTimeout(selectTimer);
+        };
     }, [ROW_LENGTH, SCREEN_WIDTH, spinnerNr, names.length, getSelectedName]);
 
     return (

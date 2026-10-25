@@ -1,89 +1,62 @@
-import { Box, Fab, ThemeProvider, Typography, useTheme } from "@mui/material";
+import { Box, Fab, Typography } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import Spinner from "../components/Spinner";
-import ReactDOM from "react-dom";
-import { useCallback, useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import { themes } from "../utils/themes";
 import LiveIndicator from "../components/LiveIndicator/LiveIndicator";
 
-export default function SpinnerPage({ names, settings, prevNames, setPrevNames }) {
+// How long the spinners stay on screen after a round starts
+const ROUND_DURATION_MS = 25000;
+
+const getCurrentTime = () => {
+    const now = new Date();
+    return "[" + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds() + "]";
+};
+
+export default function SpinnerPage({ names, settings, setPrevNames }) {
     const navigate = useNavigate();
-    const isMounted = useRef(false);
-    const theme = useTheme();
-
-    const getCurrentTime = () => {
-        const now = new Date();
-        return "[" + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds() + "]";
-    };
-
-    const spinnerGenerator = useCallback(() => {
-        if (isMounted.current) {
-            console.log(getCurrentTime() + " Generating Spinners...");
-            let percentage = Math.random() * 101;
-            let doubleSpin = percentage > 80 && settings.amtSpinners >= 2;
-            let trippleSpin = percentage > 90 && settings.amtSpinners >= 3;
-            let amt = 1;
-            if (trippleSpin) amt = 3;
-            else if (doubleSpin) amt = 2;
-            return (
-                <ThemeProvider theme={theme}>
-                    <Box>
-                        <Typography variant="h4" textAlign={"center"} sx={{ mb: 2 }}>
-                            {themes[settings.theme].title}
-                        </Typography>
-                        {Array(amt)
-                            .fill()
-                            .map((spinner, index) => (
-                                <Spinner key={index} names={names} spinnerNr={index} setPrevNames={setPrevNames} />
-                            ))}
-                    </Box>
-                </ThemeProvider>
-            );
-        }
-        // eslint-disable-next-line
-    }, [names, settings.amtSpinners, setPrevNames]);
-
-    const randomTime = useCallback(() => {
-        console.log(getCurrentTime() + " Picking Random Time...");
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve();
-            }, (Math.random() * (settings.minMaxMinutes[1] * 60 - (settings.minMaxMinutes[0] + 0.42) * 60) + (settings.minMaxMinutes[0] + 0.42) * 60) * 1000);
-        });
-    }, [settings.minMaxMinutes]);
-
-    const start = useCallback(async () => {
-        console.log(getCurrentTime() + " Starting Game...");
-        while (isMounted.current) {
-            await randomTime().then(() => {
-                if (isMounted.current) {
-                    if (names.length > 1) {
-                        ReactDOM.render(spinnerGenerator(), document.getElementById("spinners"));
-                        let audio = themes[settings.theme].audio ? new Audio(themes[settings.theme].audio) : null;
-                        if (audio) {
-                            audio.play();
-                        }
-                        setTimeout(() => {
-                            ReactDOM.render("", document.getElementById("spinners"));
-                        }, 25000);
-                    }
-                }
-            });
-        }
-    }, [names.length, randomTime, spinnerGenerator, settings.theme]);
+    const [round, setRound] = useState(null);
+    const hasEnoughPlayers = names.length > 1;
+    const { amtSpinners, minMaxMinutes, theme } = settings;
 
     useEffect(() => {
-        isMounted.current = true;
-        if (names.length > 1) {
-            start();
+        if (!hasEnoughPlayers) {
+            return;
         }
+        // The minimum is padded so a new round never starts while the previous one is still showing
+        const minSeconds = (minMaxMinutes[0] + 0.42) * 60;
+        const maxSeconds = minMaxMinutes[1] * 60;
+        let waitTimer;
+        let hideTimer;
+
+        const scheduleRound = () => {
+            console.log(getCurrentTime() + " Picking Random Time...");
+            const delay = (Math.random() * (maxSeconds - minSeconds) + minSeconds) * 1000;
+            waitTimer = setTimeout(() => {
+                console.log(getCurrentTime() + " Generating Spinners...");
+                const percentage = Math.random() * 101;
+                let amt = 1;
+                if (percentage > 90 && amtSpinners >= 3) amt = 3;
+                else if (percentage > 80 && amtSpinners >= 2) amt = 2;
+                setRound({ id: Date.now(), amtSpinners: amt });
+
+                if (themes[theme].audio) {
+                    new Audio(themes[theme].audio).play();
+                }
+                hideTimer = setTimeout(() => setRound(null), ROUND_DURATION_MS);
+                scheduleRound();
+            }, delay);
+        };
+
+        console.log(getCurrentTime() + " Starting Game...");
+        scheduleRound();
         return () => {
-            isMounted.current = false;
+            clearTimeout(waitTimer);
+            clearTimeout(hideTimer);
             console.log("Stopping Game...");
         };
-        // eslint-disable-next-line
-    }, [start]);
+    }, [hasEnoughPlayers, amtSpinners, minMaxMinutes, theme]);
 
     return (
         <Box
@@ -93,7 +66,7 @@ export default function SpinnerPage({ names, settings, prevNames, setPrevNames }
                 flex: 1,
             }}
         >
-            <img src={themes[settings.theme].decorImage} alt="" style={{ width: "100%", maxHeight: "230px" }}></img>
+            <img src={themes[theme].decorImage} alt="" style={{ width: "100%", maxHeight: "230px" }}></img>
             <Box
                 id="bigBox"
                 sx={{
@@ -103,20 +76,30 @@ export default function SpinnerPage({ names, settings, prevNames, setPrevNames }
                     justifyContent: "center",
                 }}
             >
-                {names.length > 1 ? (
-                    <div style={themes[settings.theme].decorImage ? { marginTop: "-230px" } : {}} id="spinners"></div>
+                {hasEnoughPlayers ? (
+                    <div style={themes[theme].decorImage ? { marginTop: "-230px" } : {}} id="spinners">
+                        {round && (
+                            <Box key={round.id}>
+                                <Typography variant="h4" sx={{ textAlign: "center", mb: 2 }}>
+                                    {themes[theme].title}
+                                </Typography>
+                                {Array.from({ length: round.amtSpinners }, (_, index) => (
+                                    <Spinner key={index} names={names} spinnerNr={index} setPrevNames={setPrevNames} />
+                                ))}
+                            </Box>
+                        )}
+                    </div>
                 ) : (
                     <Typography
                         variant="h3"
-                        textAlign={"center"}
-                        sx={themes[settings.theme].decorImage ? { marginTop: "-230px" } : {}}
+                        sx={{ textAlign: "center", ...(themes[theme].decorImage ? { marginTop: "-230px" } : {}) }}
                     >
                         Add more players to begin
                     </Typography>
                 )}
-                {names.length > 1 && (
+                {hasEnoughPlayers && (
                     <Box sx={{ position: "absolute", bottom: 16, left: 16 }}>
-                        <LiveIndicator settings={settings} sx={{ position: "absolute", bottom: 16, left: 16 }} />
+                        <LiveIndicator settings={settings} />
                     </Box>
                 )}
                 <Fab
