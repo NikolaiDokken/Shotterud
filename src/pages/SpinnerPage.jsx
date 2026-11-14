@@ -7,8 +7,6 @@ import { getRoundDuration, getSpinDurations } from "../utils/spinTiming";
 import LiveIndicator from "../components/LiveIndicator/LiveIndicator";
 import styles from "./SpinnerPage.module.css";
 
-const playerList = new Intl.ListFormat("en", { type: "conjunction" });
-
 const getCurrentTime = () => {
     const now = new Date();
     return "[" + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds() + "]";
@@ -87,16 +85,20 @@ export default function SpinnerPage({ names, settings, setPrevNames }) {
                             />
                         ))}
                     </div>
-                ) : hasEnoughPlayers ? (
-                    <p className={styles.players}>{playerList.format(names)} are playing</p>
                 ) : (
-                    <div className={styles.empty}>
-                        <p className={styles.players}>Add at least two players to start the game.</p>
-                        <button type="button" className="button button-primary" onClick={() => navigate("/settings")}>
-                            <PersonAddIcon />
-                            Add players
-                        </button>
-                    </div>
+                    !hasEnoughPlayers && (
+                        <div className={styles.empty}>
+                            <p className={styles.players}>Add at least two players to start the game.</p>
+                            <button
+                                type="button"
+                                className="button button-primary"
+                                onClick={() => navigate("/settings")}
+                            >
+                                <PersonAddIcon />
+                                Add players
+                            </button>
+                        </div>
+                    )
                 )}
             </div>
             <footer className={styles.footer}>
