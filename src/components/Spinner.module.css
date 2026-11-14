@@ -15,8 +15,10 @@
     mask-image: linear-gradient(to right, transparent, black 18%, black 82%, transparent);
 }
 
+/* The row's left edge starts at the needle, so its position doesn't depend on the window width */
 .row {
     display: flex;
+    margin-left: 50%;
     gap: 10px;
     width: max-content;
     transition-property: transform;

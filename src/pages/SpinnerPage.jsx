@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { themes } from "../utils/themes";
 import { getRoundDuration, getSpinDurations } from "../utils/spinTiming";
 import LiveIndicator from "../components/LiveIndicator/LiveIndicator";
+import { useWakeLock } from "../utils/useWakeLock";
 import styles from "./SpinnerPage.module.css";
 
 const getCurrentTime = () => {
@@ -17,6 +18,8 @@ export default function SpinnerPage({ names, settings, setPrevNames }) {
     const [round, setRound] = useState(null);
     const hasEnoughPlayers = names.length > 1;
     const { amtSpinners, minMaxMinutes, theme, sound } = settings;
+    // A party screen sits untouched for a long time between rounds, so keep it from sleeping while the game is live
+    useWakeLock(hasEnoughPlayers);
 
     useEffect(() => {
         if (!hasEnoughPlayers) {

@@ -30,7 +30,9 @@ function getRandomInt(min, max) {
 function createSpin(names) {
     const repeats = Math.ceil(ROW_LENGTH / names.length);
     const nameList = shuffle(Array.from({ length: repeats }, () => names).flat());
-    const boxesRightOfNeedle = Math.ceil(window.innerWidth / 2 / NAME_BOX_STRIDE);
+    // Sized for the widest the window can get, so going fullscreen mid-spin doesn't leave a gap at the end
+    const widestWindow = Math.max(window.innerWidth, window.screen.width);
+    const boxesRightOfNeedle = Math.ceil(widestWindow / 2 / NAME_BOX_STRIDE);
     const winnerIndex = nameList.length - 1 - boxesRightOfNeedle - getRandomInt(0, names.length);
     return {
         nameList,
@@ -45,15 +47,15 @@ export default function Spinner({ names, spinSeconds, roundId, setPrevNames, sou
     // Row offset in px; null until the spin starts, while the row waits off-screen to the right
     const [position, setPosition] = useState(null);
     const [isDone, setIsDone] = useState(false);
-    const containerRef = useRef(null);
     const rowRef = useRef(null);
     const winner = spin.nameList[spin.winnerIndex];
 
     useEffect(() => {
         let revealTimer;
         const spinTimer = setTimeout(() => {
-            const needleX = containerRef.current.clientWidth / 2;
-            setPosition(needleX - (spin.winnerIndex * NAME_BOX_STRIDE + spin.needleOffset));
+            // The row starts at the needle (see .row in the CSS), so this doesn't depend on the window width
+            // and the winner stays under the needle if the window is resized mid-spin
+            setPosition(-(spin.winnerIndex * NAME_BOX_STRIDE + spin.needleOffset));
 
             revealTimer = setTimeout(() => {
                 setIsDone(true);
@@ -78,10 +80,10 @@ export default function Spinner({ names, spinSeconds, roundId, setPrevNames, sou
         let lastTickAt = 0;
         const step = () => {
             const row = rowRef.current;
-            const container = containerRef.current;
-            if (row && container) {
+            if (row) {
                 const x = new DOMMatrixReadOnly(getComputedStyle(row).transform).m41;
-                const index = Math.floor((container.clientWidth / 2 - x) / NAME_BOX_STRIDE);
+                // x is measured from the needle, so this is the box under it
+                const index = Math.floor(-x / NAME_BOX_STRIDE);
                 const now = performance.now();
                 if (index !== lastIndex) {
                     // No tick for the first reading, or while the needle is still left of the row
@@ -101,7 +103,7 @@ export default function Spinner({ names, spinSeconds, roundId, setPrevNames, sou
     return (
         <div className={styles.spinner}>
             <div className={styles.window}>
-                <div ref={containerRef} className={styles.viewport}>
+                <div className={styles.viewport}>
                     <div
                         ref={rowRef}
                         className={styles.row}
