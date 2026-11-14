@@ -133,6 +133,29 @@ export default function Settings({ settings, setSettings, names, setNames }) {
                 </div>
             </section>
 
+            <section className={styles.section} aria-labelledby="sound-heading">
+                <h2 id="sound-heading" className={styles.sectionHeading}>
+                    Sound
+                </h2>
+                <p className={styles.hint}>The theme's sound when a round starts, and the ticking while the spinners turn.</p>
+                <div className={styles.options}>
+                    {[
+                        [true, "On"],
+                        [false, "Off"],
+                    ].map(([sound, label]) => (
+                        <button
+                            key={label}
+                            type="button"
+                            className="button button-ghost"
+                            aria-pressed={settings.sound === sound}
+                            onClick={() => setSettings({ ...settings, sound })}
+                        >
+                            {label}
+                        </button>
+                    ))}
+                </div>
+            </section>
+
             <section className={styles.section} aria-labelledby="theme-heading">
                 <h2 id="theme-heading" className={styles.sectionHeading}>
                     Theme

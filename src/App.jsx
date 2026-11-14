@@ -11,6 +11,7 @@ const DEFAULT_SETTINGS = {
     amtSpinners: 1,
     minMaxMinutes: [15, 30],
     theme: "default",
+    sound: true,
 };
 
 function App() {

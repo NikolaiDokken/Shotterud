@@ -18,7 +18,7 @@ export default function SpinnerPage({ names, settings, setPrevNames }) {
     const navigate = useNavigate();
     const [round, setRound] = useState(null);
     const hasEnoughPlayers = names.length > 1;
-    const { amtSpinners, minMaxMinutes, theme } = settings;
+    const { amtSpinners, minMaxMinutes, theme, sound } = settings;
 
     useEffect(() => {
         if (!hasEnoughPlayers) {
@@ -42,7 +42,7 @@ export default function SpinnerPage({ names, settings, setPrevNames }) {
                 const spinDurations = getSpinDurations(amt);
                 setRound({ id: Date.now(), spinDurations });
 
-                if (themes[theme].audio) {
+                if (sound && themes[theme].audio) {
                     // Browsers block autoplay until the user has interacted with the page
                     new Audio(themes[theme].audio)
                         .play()
@@ -62,7 +62,7 @@ export default function SpinnerPage({ names, settings, setPrevNames }) {
             clearTimeout(hideTimer);
             console.log("Stopping Game...");
         };
-    }, [hasEnoughPlayers, amtSpinners, minMaxMinutes, theme]);
+    }, [hasEnoughPlayers, amtSpinners, minMaxMinutes, theme, sound]);
 
     return (
         <main className={styles.page}>
@@ -82,6 +82,7 @@ export default function SpinnerPage({ names, settings, setPrevNames }) {
                                 names={names}
                                 spinSeconds={spinSeconds}
                                 roundId={round.id}
+                                sound={sound}
                                 setPrevNames={setPrevNames}
                             />
                         ))}

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { shuffle } from "../utils/utils";
 import { SPIN_DELAY_MS } from "../utils/spinTiming";
+import { playTick, preloadTick } from "../utils/tick";
 import styles from "./Spinner.module.css";
 
 // Keep these in sync with Spinner.module.css
@@ -9,6 +10,8 @@ const NAME_BOX_GAP = 10;
 const NAME_BOX_STRIDE = NAME_BOX_WIDTH + NAME_BOX_GAP;
 // The row is about this many boxes long whatever the player count, so it always spins at the same speed
 const ROW_LENGTH = 1000;
+// At full speed boxes pass faster than ticks can be told apart, so ticks are at least this far apart
+const MIN_TICK_GAP_MS = 60;
 
 /**
  * Function that return random integer
@@ -37,12 +40,13 @@ function createSpin(names) {
     };
 }
 
-export default function Spinner({ names, spinSeconds, roundId, setPrevNames }) {
+export default function Spinner({ names, spinSeconds, roundId, setPrevNames, sound }) {
     const [spin] = useState(() => createSpin(names));
     // Row offset in px; null until the spin starts, while the row waits off-screen to the right
     const [position, setPosition] = useState(null);
     const [isDone, setIsDone] = useState(false);
     const containerRef = useRef(null);
+    const rowRef = useRef(null);
     const winner = spin.nameList[spin.winnerIndex];
 
     useEffect(() => {
@@ -62,11 +66,44 @@ export default function Spinner({ names, spinSeconds, roundId, setPrevNames }) {
         };
     }, [spin, winner, spinSeconds, roundId, setPrevNames]);
 
+    // Tick every time a new box passes the needle, following the row as the CSS transition moves it
+    useEffect(() => {
+        if (sound) preloadTick();
+    }, [sound]);
+
+    useEffect(() => {
+        if (!sound || position === null || isDone) return;
+        let frame;
+        let lastIndex = null;
+        let lastTickAt = 0;
+        const step = () => {
+            const row = rowRef.current;
+            const container = containerRef.current;
+            if (row && container) {
+                const x = new DOMMatrixReadOnly(getComputedStyle(row).transform).m41;
+                const index = Math.floor((container.clientWidth / 2 - x) / NAME_BOX_STRIDE);
+                const now = performance.now();
+                if (index !== lastIndex) {
+                    // No tick for the first reading, or while the needle is still left of the row
+                    if (lastIndex !== null && index >= 0 && now - lastTickAt >= MIN_TICK_GAP_MS) {
+                        playTick(0.4);
+                        lastTickAt = now;
+                    }
+                    lastIndex = index;
+                }
+            }
+            frame = requestAnimationFrame(step);
+        };
+        frame = requestAnimationFrame(step);
+        return () => cancelAnimationFrame(frame);
+    }, [position, isDone, sound]);
+
     return (
         <div className={styles.spinner}>
             <div className={styles.window}>
                 <div ref={containerRef} className={styles.viewport}>
                     <div
+                        ref={rowRef}
                         className={styles.row}
                         style={{
                             transform: position === null ? "translateX(100vw)" : `translateX(${position}px)`,
